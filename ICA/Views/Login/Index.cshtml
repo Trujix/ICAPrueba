@@ -1,0 +1,101 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        body {
+            background-color: #16ac65;
+        }
+
+        #contenedor-login {
+            background-color: #a8e1c6;
+            border-radius: 21px;
+            margin: auto;
+            margin-top: 50px;
+            padding-top: 40px;
+            width: 500px;
+        }
+
+            #contenedor-login button {
+                background-color: #16ac65 !important;
+                border-color: #16ac65 !important;
+            }
+        input::placeholder{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="pleca">
+            <img src="~/img/ICA_Logo.png" alt="logo" />
+        </div>
+        <div id="tituloHeader">Índice de Calidad Alimentaria</div>
+    </header>
+    <br />
+        <div class="row">
+            <div id="contenedor-login">
+
+                @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-signin" }))
+                {
+                    <div class="row">
+                        <div class="form-group col-6 offset-md-3">
+                            @Html.AntiForgeryToken()
+                            <input type="text" id="usuario1" name="usuario1" maxlength="50" class="form-control form-control-sm" placeholder="usuario" value="@ViewBag.Usuario" required autofocus>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group  col-6 offset-md-3">
+                            <input type="password" id="contrasena" name="contrasena" maxlength="50" class="form-control form-control-sm" placeholder="contraseña" required>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group  col-6 offset-md-3">
+                            <button class="btn btn-primary btn-block" type="submit">Entrar</button>
+                            <br />
+                            @if (ViewBag.Mensaje != null)
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    @ViewBag.Mensaje
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+
+    <script>
+        $(document).on('click', '#tituloHeader', function () {
+            $.ajax({
+                type: 'POST',
+                contentType: "application/x-www-form-urlencoded",
+                url: "/Login/PruebaLeer",
+                //data: data,
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+            });
+        });
+    </script>
+</body>
+</html>

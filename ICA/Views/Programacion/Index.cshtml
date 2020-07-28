@@ -1,0 +1,510 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Programación mensual de Tiendas </h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <select class="form-control" id="select-anio">
+        </select>
+    </div>
+    <div class="col-2">
+        <select class="form-control" id="select-mes">
+        </select>
+    </div>
+    <div class="col-8">
+        <button class="btn btn-success" id="btn-crear">Crear</button>
+        <button class="btn btn-primary" id="btn-verResumen">Ver resumen</button>
+        <button class="btn btn-primary" id="btn-verCalendario">Ver calendario</button>
+        <button class="btn btn-danger" id="btn-eliminarProgramacion">Eliminar</button>
+    </div>
+</div>
+<br />
+<div class="progress">
+    <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+</div>
+<br />
+<div class="row" id="panel-resumen">
+    <div class="col-12">
+        <table class="table table-striped table-bordered" id="programacionTabla">
+            <thead>
+                <tr>
+                    <th>
+                        Subzona
+                    </th>
+                    <th>
+                        Total tiendas
+                    </th>
+                    <th>
+                        Requerido
+                    </th>
+                    <th>
+                        Real
+                    </th>
+                    <th>
+                        Programadas
+                    </th>
+                    <th>
+                        Evaluadas
+                    </th>
+                    <th>
+                        Avance
+                    </th>
+                    <th>
+                        Operaciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot align="right">
+                <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div id="panel-calendario">
+    <div class="row">
+        <div class="col-2">
+            <select class="form-control" id="select-zona">
+                @foreach (var c in ViewBag.Zonas)
+                {
+                    <option value="@c.Value">@c.Text</option>
+                }
+            </select>
+        </div>
+        <div class="col-2">
+            <select class="form-control" id="select-auditor">
+                @foreach (var c in ViewBag.Auditores)
+                {
+                    <option value="@c.Usuario1">@c.Nombre</option>
+                }
+            </select>
+        </div>
+        <div class="col-2">
+            <div class='input-group date' id='datepicker'>
+                <input type='text' class="form-control" id="fecha" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+        <div class="col-6">
+            <button class="btn btn-success" id="btn-programar">Programar</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="calendar"></div>
+        </div>
+
+    </div>
+</div>
+<div id="modal-container" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript"> 
+        var PROId = 0;
+        var tabla = null;
+        $(function () {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            $("#panel-calendario").hide();
+            inicializarSelectMeses();
+            inicializarSelectAnio();
+            mostrarResumen();
+
+            $('#modal-container').on('hidden.bs.modal', function () {
+                $(this).removeData('bs.modal');
+            });
+
+            $("#btn-verResumen").click(mostrarResumen);
+           
+            $("#btn-verCalendario").click(mostrarCalendario);
+            $("#btn-programar").click(function (e) {
+                e.preventDefault();
+                programarAuditor();
+            });
+            $("#btn-crear").click(crearProgramacion);
+            $("#btn-eliminarProgramacion").click(eliminarProgramacion);
+            $("#select-mes #select-anio").change(function () {
+                PROId = 0;
+            });
+
+            $("#fecha").keyup(function (e) {
+                if ((e.which < 47 || e.which > 57) && e.which != 191) {
+                    if ($(this).val().length <= 1) {
+                        $(this).val("");
+                    } else {
+                        $(this).val($(this).val().substring(0, $(this).val().length-1));
+                    }
+                }
+                    
+            });
+        });
+        function inicializarSelectMeses() {
+            var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+            $.each(meses, function (i, m) {
+                $('#select-mes').append('<option value="'+(i+1)+'">'+ m +'</option>');
+            });
+
+
+            var mes = moment().format('M');
+            $("#select-mes option[value='" + mes + "']").prop("selected", "true");
+        }
+        function inicializarSelectAnio() {
+            var anio = moment().format('YYYY');
+            var inicio = anio - 5;
+            var fin = parseInt(anio) + 5;
+            for (var i = inicio; i <= fin; i++) {
+                $('#select-anio').append('<option value="' + i + '">' + i + '</option>');
+            }
+
+           $("#select-anio option[value='" + anio + "']").prop("selected", "true");
+        }
+
+
+        function mostrarResumen() {
+            var mes = $('#select-mes').val();
+            var anio = $('#select-anio').val();
+
+            var url = "@Url.Action("ObtenerResumen", "Programacion", new { })";
+            url = url + "?mes=" + mes + "&anio=" + anio;
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'json',
+                success: function (response) {
+                    if (response != false) {
+                        llenarTablaTiendas(response);
+                        $("#panel-calendario").hide();
+                        $("#panel-resumen").slideDown();
+
+                    } else {
+                        toastr["error"]("La programación no existe")
+                        llenarTablaTiendas([]);
+                        $("#panel-calendario").hide();
+                        $("#panel-resumen").slideDown();
+                    }
+                },
+                fail: function (res) {
+                    toastr["error"]("La programación no existe")
+                }
+            });
+        }
+
+       
+        function llenarTablaTiendas(data){
+            var html = "";
+            var evaluadas = 0;
+            var muestra = 0;
+            if (tabla != null)
+                tabla.destroy();
+
+            $.each(data, function (i, t) {
+                PROId = t.PROId;
+                html += `<tr>
+                            <td>${t.ZonaNombre}</td>
+                            <td>${t.TotalTiendas}</td>
+                            <td>${t.Requerido}</td>
+                            <td class="${t.Real < t.Requerido ?'text-danger font-weight-bold':''}">${t.Real}</td>
+                            <td>${t.Programadas}</td>
+                            <td>${t.Evaluadas}</td>
+                            <td>${t.Avance}%</td>
+                            <td  class="text-center"><a class="modal-link btn btn-sm btn-success" href="/Programacion/DetallePorZona?zona=${t.Zona}&PROId=${t.PROId}">Detalle</a></td>
+                        </tr>`;
+                evaluadas += t.Evaluadas;
+                muestra += t.Programadas;
+            });
+            $("#programacionTabla tbody").html(html);
+            
+
+            tabla = $('#programacionTabla').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+                },
+                destroy: true,
+                "paging": false,
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function (i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+                    $(api.column(0).footer()).html(
+                        ' Total: '
+                    );
+                    // Total de todas las paginas
+                    totalTiendas = api
+                        .column(1)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+                    $(api.column(1).footer()).html(
+                        totalTiendas
+                    );
+                    // Total de todas las paginas
+                    totalReal = api
+                        .column(3)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    /* Total de pagina actual
+                    pageTotalReal = api
+                        .column(3, { page: 'current' })
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);*/
+
+                    // Update footer
+                    $(api.column(3).footer()).html(
+                        totalReal
+                    );
+
+                    // Total de todas las paginas
+                    totalReq = api
+                        .column(2)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    $(api.column(2).footer()).html(
+                        totalReq
+                    );
+
+                    // Total de todas las paginas
+                    totalProg = api
+                        .column(4)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+                    $(api.column(4).footer()).html(
+                        totalProg
+                    );
+
+                    // Total de todas las paginas
+                    totalEv = api
+                        .column(5)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+                    $(api.column(5).footer()).html(
+                        totalEv
+                    );
+                    
+                    avance = Math.ceil((totalEv * 100) / totalProg);
+                    if (totalProg == 0)
+                        avance = 0;
+
+                    $(api.column(6).footer()).html(
+                        avance + "%"
+                    );
+                }
+            });
+            $('body').on('click', '.modal-link', function (e) {
+                e.preventDefault();
+                var link = $(this);
+                $('.modal-content').load(link[0].href, function (result) {
+                    $('#modal-container').modal({ show: true });
+                });
+            });
+
+            actualizarBarraAvance(evaluadas, muestra);
+        }
+
+        function actualizarBarraAvance(evaluadas, muestra) {
+            var avance = Math.ceil((evaluadas * 100) / muestra);
+            if (evaluadas == 0)
+                avance = 0;
+            $(".progress-bar").prop("aria-valuenow", avance);
+            $(".progress-bar").html(avance + "%");
+            $(".progress-bar").css("width",avance+"%");
+        }
+
+        function mostrarCalendario(){
+            $("#panel-resumen").hide();
+            $("#panel-calendario").slideDown();
+            var anio = $("#select-anio").val();
+            var mes = $("#select-mes").val();
+            var fechaInicio;
+            
+            if (mes < 9)
+                mes = "0" + (parseInt(mes));
+            else
+                mes++;
+            //console.log(mes);
+            var fechaInicio = anio + "-" + mes + "-01";
+            var calendar = $("#calendar").calendar(
+                {
+                    tmpl_path: "/tmpls/",
+                    day: fechaInicio,
+                    language: 'es-MX',
+                    events_source: []
+                });	
+            try {
+                $('#datepicker').datepicker('destroy');
+            } catch (e) { }
+
+            if (moment().format("M") <= $("#select-mes").val())
+                fechaInicio = moment().format("MM/DD/YYYY");
+                //fechaInicio = moment().format("DD/MM/YYYY");
+            else
+                fechaInicio = mes + "/01/" + anio;
+
+            $('#datepicker').datepicker({
+                language: "es",
+                format: "mm/dd/yyyy",
+                startDate: fechaInicio,
+                endDate: mes + "/" + moment(anio + "-" + mes, "YYYY-MM").daysInMonth() + "/" + anio
+            });
+            /*
+             format: "dd/mm/yyyy",
+              startDate: fechaInicio,
+              endDate: moment(anio+"-"+mes, "YYYY-MM").daysInMonth()+"/"+mes+"/"+anio
+             
+             format: "mm/dd/yyyy",
+                startDate: fechaInicio,
+                endDate: mes+"/" + moment(anio + "-" + mes, "YYYY-MM").daysInMonth() + "/"+anio
+             
+             */
+
+           
+            var url = "@Url.Action("ObtenerCalendario", "Programacion", new {})";
+            url = url + "?mes=" + mes + "&anio=" + anio;
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        agregarTagACalendario(response);
+                    } else {
+                        PROId = null;
+                        toastr["error"]("La programación no existe");
+                    }
+                }
+            });
+        }
+
+        function agregarTagACalendario(data) {
+            let ev; 
+            $.each(data, function (i, value) {
+                ev = value[0];
+                PROId = ev.PROId;
+                var html = `<a class="modal-link btn btn-${ev.Color} cal-evento" href="/Programacion/DetallePorDia?zona=${ev.Zona}&PROId=${PROId}&fecha=${ev.FechaEvaluacion}&auditor=${ev.Auditor}">${ev.ZonaNombre} - ${ev.Auditor}</a>`;
+                $("span[data-cal-date='" + ev.FechaEvaluacion + "']").parent().append(html);
+            });
+        }
+
+
+        function crearProgramacion() {
+            $(".pace").removeClass('pace-inactive');
+            var url = "@Url.Action("Crear", "Programacion", new {})";
+            if ($("#select-anio").val() >= moment().format("YYYY") && $("#select-mes").val() >= moment().format("M")) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        anio: $("#select-anio").val(),
+                        mes: $("#select-mes").val()
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.estatus) {
+                            toastr["success"]("Programación creada con éxito");
+                            mostrarResumen();
+                        } else {
+                            if (response.dias != undefined)
+                                toastr["error"]("La programación debe hacerse " + response.dias + " antes de que inicie el mes");
+                            else
+                                toastr["error"]("La programación ya existe");
+                        }
+                        $(".pace").addClass('pace-inactive');
+                    }
+                });
+            } else {
+                $(".pace").addClass('pace-inactive');
+                toastr["error"]("No puedes crear programaciones para meses y años anteriores");
+            }
+        }
+
+        function programarAuditor() {
+            if (PROId != null) {
+                if ($('#datepicker').datepicker('getFormattedDate') != ""){
+                    var url = "@Url.Action("ProgramarAuditor", "Programacion", new {})";
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: {
+                            fecha: $('#datepicker').datepicker('getFormattedDate'),
+                            zona: $("#select-zona").val(),
+                            auditor: $("#select-auditor").val(),
+                            PROId: PROId
+                        },
+                        dataType: 'json',
+                        success: function (response) { 
+                            mostrarCalendario();
+                            if (response) {
+                                toastr["success"]("Asignación creada con éxito");
+                            } else
+                                toastr["error"]("No existen tiendas para la evaluación");
+                        },
+                        fail: function (res) {
+                            toastr["error"]("La programación no existe");
+                        }
+                        });
+
+                } else
+                    toastr["error"]("Debe seleccionar una fecha");
+
+            } else {
+                toastr["error"]("La programación no existe");
+            }
+        }
+
+        function eliminarProgramacion() {
+           // e.preventDefault();
+            var mes = $('#select-mes').val();
+            var anio = $('#select-anio').val();
+            var link = "@Url.Action("Delete", "Programacion", new {})";
+            link = link + "?mes=" + mes + "&anio=" + anio;
+            $('.modal-content').load(link, function (result) {
+                $('#modal-container').modal({ show: true });
+            });
+        }
+    </script>
+    }
+

@@ -1,0 +1,447 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ICAModelStoreContainer" CdmEntityContainer="ICAEntities">
+    <EntitySetMapping Name="Articulo">
+      <EntityTypeMapping TypeName="ICAModel.Articulo">
+        <MappingFragment StoreEntitySet="Articulo">
+          <ScalarProperty Name="DescripcionSubCategoria" ColumnName="DescripcionSubCategoria" />
+          <ScalarProperty Name="ClaveSubCategoria" ColumnName="ClaveSubCategoria" />
+          <ScalarProperty Name="DescripcionCategoria" ColumnName="DescripcionCategoria" />
+          <ScalarProperty Name="ClaveCategoria" ColumnName="ClaveCategoria" />
+          <ScalarProperty Name="ARTId" ColumnName="ARTId" />
+          <ScalarProperty Name="SKU" ColumnName="SKU" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="TipoProducto" ColumnName="TipoProducto" />
+          <ScalarProperty Name="ClasificacionICA" ColumnName="ClasificacionICA" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArticuloCriterio">
+      <EntityTypeMapping TypeName="ICAModel.ArticuloCriterio">
+        <MappingFragment StoreEntitySet="ArticuloCriterio">
+          <ScalarProperty Name="Orden" ColumnName="Orden" />
+          <ScalarProperty Name="ARTId" ColumnName="ARTId" />
+          <ScalarProperty Name="CRTId" ColumnName="CRTId" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Criterio">
+      <EntityTypeMapping TypeName="ICAModel.Criterio">
+        <MappingFragment StoreEntitySet="Criterio">
+          <ScalarProperty Name="OperacionGlobal" ColumnName="OperacionGlobal" />
+          <ScalarProperty Name="EquipoProducto" ColumnName="EquipoProducto" />
+          <ScalarProperty Name="ValorReferencia" ColumnName="ValorReferencia" />
+          <ScalarProperty Name="CRTId" ColumnName="CRTId" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Clasificacion" ColumnName="Clasificacion" />
+          <ScalarProperty Name="Ev_Posterior" ColumnName="Ev_Posterior" />
+          <ScalarProperty Name="TipoRespuesta" ColumnName="TipoRespuesta" />
+          <ScalarProperty Name="EvidenciaObli" ColumnName="EvidenciaObli" />
+          <ScalarProperty Name="NoTomas" ColumnName="NoTomas" />
+          <ScalarProperty Name="TipoEquipo" ColumnName="TipoEquipo" />
+          <ScalarProperty Name="Precargado" ColumnName="Precargado" />
+          <ScalarProperty Name="PermitirVacio" ColumnName="PermitirVacio" />
+          <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+          <ScalarProperty Name="Condicionante" ColumnName="Condicionante" />
+          <ScalarProperty Name="CRTId_Cond" ColumnName="CRTId_Cond" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Equipo">
+      <EntityTypeMapping TypeName="ICAModel.Equipo">
+        <MappingFragment StoreEntitySet="Equipo">
+          <ScalarProperty Name="EQPId" ColumnName="EQPId" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EquipoCriterio">
+      <EntityTypeMapping TypeName="ICAModel.EquipoCriterio">
+        <MappingFragment StoreEntitySet="EquipoCriterio">
+          <ScalarProperty Name="Orden" ColumnName="Orden" />
+          <ScalarProperty Name="EQPId" ColumnName="EQPId" />
+          <ScalarProperty Name="CRTId" ColumnName="CRTId" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Evaluacion">
+      <EntityTypeMapping TypeName="ICAModel.Evaluacion">
+        <MappingFragment StoreEntitySet="Evaluacion">
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="ZonaKiosko" ColumnName="ZonaKiosko" />
+          <ScalarProperty Name="FechaEvaluacion" ColumnName="FechaEvaluacion" />
+          <ScalarProperty Name="Auditor" ColumnName="Auditor" />
+          <ScalarProperty Name="PROId" ColumnName="PROId" />
+          <ScalarProperty Name="EVAId" ColumnName="EVAId" />
+          <ScalarProperty Name="ClaveTienda" ColumnName="ClaveTienda" />
+          <ScalarProperty Name="NombreTienda" ColumnName="NombreTienda" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+          <ScalarProperty Name="Zona" ColumnName="Zona" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Log">
+      <EntityTypeMapping TypeName="ICAModel.Log">
+        <MappingFragment StoreEntitySet="Log">
+          <ScalarProperty Name="LOGId" ColumnName="LOGId" />
+          <ScalarProperty Name="Modulo" ColumnName="Modulo" />
+          <ScalarProperty Name="Accion" ColumnName="Accion" />
+          <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modulo">
+      <EntityTypeMapping TypeName="ICAModel.Modulo">
+        <MappingFragment StoreEntitySet="Modulo">
+          <ScalarProperty Name="MODId" ColumnName="MODId" />
+          <ScalarProperty Name="Menu" ColumnName="Menu" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuloPerfil">
+      <EntityTypeMapping TypeName="ICAModel.ModuloPerfil">
+        <MappingFragment StoreEntitySet="ModuloPerfil">
+          <ScalarProperty Name="PERId" ColumnName="PERId" />
+          <ScalarProperty Name="MODId" ColumnName="MODId" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Insertar" ColumnName="Insertar" />
+          <ScalarProperty Name="Leer" ColumnName="Leer" />
+          <ScalarProperty Name="Actualizar" ColumnName="Actualizar" />
+          <ScalarProperty Name="Borrar" ColumnName="Borrar" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Perfil">
+      <EntityTypeMapping TypeName="ICAModel.Perfil">
+        <MappingFragment StoreEntitySet="Perfil">
+          <ScalarProperty Name="PERId" ColumnName="PERId" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Skus">
+      <EntityTypeMapping TypeName="ICAModel.Skus">
+        <MappingFragment StoreEntitySet="Skus">
+          <ScalarProperty Name="SKU" ColumnName="SKU" />
+          <ScalarProperty Name="Articulo" ColumnName="Articulo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tienda">
+      <EntityTypeMapping TypeName="ICAModel.Tienda">
+        <MappingFragment StoreEntitySet="Tienda">
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="Zona" ColumnName="Zona" />
+          <ScalarProperty Name="ClaveTienda" ColumnName="ClaveTienda" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="ICAModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+          <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsuarioPerfil">
+      <EntityTypeMapping TypeName="ICAModel.UsuarioPerfil">
+        <MappingFragment StoreEntitySet="UsuarioPerfil">
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="PERId" ColumnName="PERId" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ValorReferencia">
+      <EntityTypeMapping TypeName="ICAModel.ValorReferencia">
+        <MappingFragment StoreEntitySet="ValorReferencia">
+          <ScalarProperty Name="VARClave" ColumnName="VARClave" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Modificable" ColumnName="Modificable" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VARValor">
+      <EntityTypeMapping TypeName="ICAModel.VARValor">
+        <MappingFragment StoreEntitySet="VARValor">
+          <ScalarProperty Name="VARClave" ColumnName="VARClave" />
+          <ScalarProperty Name="VAVClave" ColumnName="VAVClave" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ParametroMuestra">
+      <EntityTypeMapping TypeName="ICAModel.ParametroMuestra">
+        <MappingFragment StoreEntitySet="ParametroMuestra">
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Parametro" ColumnName="Parametro" />
+          <ScalarProperty Name="PAMId" ColumnName="PAMId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Programacion">
+      <EntityTypeMapping TypeName="ICAModel.Programacion">
+        <MappingFragment StoreEntitySet="Programacion">
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="Anio" ColumnName="Anio" />
+          <ScalarProperty Name="Mes" ColumnName="Mes" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="PROId" ColumnName="PROId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VariacionPermitida">
+      <EntityTypeMapping TypeName="ICAModel.VariacionPermitida">
+        <MappingFragment StoreEntitySet="VariacionPermitida">
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="VariacionP" ColumnName="VariacionP" />
+          <ScalarProperty Name="ValMax" ColumnName="ValMax" />
+          <ScalarProperty Name="ValMin" ColumnName="ValMin" />
+          <ScalarProperty Name="VAPId" ColumnName="VAPId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProgramacionZona">
+      <EntityTypeMapping TypeName="ICAModel.ProgramacionZona">
+        <MappingFragment StoreEntitySet="ProgramacionZona">
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="Real" ColumnName="Real" />
+          <ScalarProperty Name="Requerido" ColumnName="Requerido" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Zona" ColumnName="Zona" />
+          <ScalarProperty Name="PROId" ColumnName="PROId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoProducto">
+      <EntityTypeMapping TypeName="ICAModel.TipoProducto">
+        <MappingFragment StoreEntitySet="TipoProducto">
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="TamPorcionMin" ColumnName="TamPorcionMin" />
+          <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+          <ScalarProperty Name="TamPorcion" ColumnName="TamPorcion" />
+          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+          <ScalarProperty Name="Producto" ColumnName="Producto" />
+          <ScalarProperty Name="TPRId" ColumnName="TPRId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_ValorPreArticulo" FunctionName="ICAModel.Store.sp_ValorPreArticulo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ICAModel.sp_ValorPreArticulo_Result">
+          <ScalarProperty Name="ARTId" ColumnName="ARTId" />
+          <ScalarProperty Name="CRTId" ColumnName="CRTId" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ValorPreEquipo" FunctionName="ICAModel.Store.sp_ValorPreEquipo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ICAModel.sp_ValorPreEquipo_Result">
+          <ScalarProperty Name="EQPId" ColumnName="EQPId" />
+          <ScalarProperty Name="CRTId" ColumnName="CRTId" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Formula">
+      <EntityTypeMapping TypeName="ICAModel.Formula">
+        <MappingFragment StoreEntitySet="Formula">
+          <ScalarProperty Name="IncluirInformeProv" ColumnName="IncluirInformeProv" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="OperacionGlobal" ColumnName="OperacionGlobal" />
+          <ScalarProperty Name="Elemento" ColumnName="Elemento" />
+          <ScalarProperty Name="SubClasificacion" ColumnName="SubClasificacion" />
+          <ScalarProperty Name="ClasifiCA" ColumnName="ClasifiCA" />
+          <ScalarProperty Name="ProcAlmacenado" ColumnName="ProcAlmacenado" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="FORId" ColumnName="FORId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EvArticulo">
+      <EntityTypeMapping TypeName="ICAModel.EvArticulo">
+        <MappingFragment StoreEntitySet="EvArticulo">
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+          <ScalarProperty Name="CveEvArt" ColumnName="CveEvArt" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+          <ScalarProperty Name="NoToma" ColumnName="NoToma" />
+          <ScalarProperty Name="CRTId" ColumnName="CRTId" />
+          <ScalarProperty Name="ARTId" ColumnName="ARTId" />
+          <ScalarProperty Name="EVAId" ColumnName="EVAId" />
+          <ScalarProperty Name="EVRId" ColumnName="EVRId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EvEquipo">
+      <EntityTypeMapping TypeName="ICAModel.EvEquipo">
+        <MappingFragment StoreEntitySet="EvEquipo">
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+          <ScalarProperty Name="NoToma" ColumnName="NoToma" />
+          <ScalarProperty Name="Sabor" ColumnName="Sabor" />
+          <ScalarProperty Name="CRTId" ColumnName="CRTId" />
+          <ScalarProperty Name="EQPId" ColumnName="EQPId" />
+          <ScalarProperty Name="EVAId" ColumnName="EVAId" />
+          <ScalarProperty Name="EVEId" ColumnName="EVEId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EvidenciaArticulo">
+      <EntityTypeMapping TypeName="ICAModel.EvidenciaArticulo">
+        <MappingFragment StoreEntitySet="EvidenciaArticulo">
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="EvidenciaDir" ColumnName="EvidenciaDir" />
+          <ScalarProperty Name="EVRId" ColumnName="EVRId" />
+          <ScalarProperty Name="AERId" ColumnName="AERId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EvidenciaEquipo">
+      <EntityTypeMapping TypeName="ICAModel.EvidenciaEquipo">
+        <MappingFragment StoreEntitySet="EvidenciaEquipo">
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="EvidenciaDir" ColumnName="EvidenciaDir" />
+          <ScalarProperty Name="EVEId" ColumnName="EVEId" />
+          <ScalarProperty Name="AEVId" ColumnName="AEVId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prueba">
+      <EntityTypeMapping TypeName="ICAModel.Prueba">
+        <MappingFragment StoreEntitySet="Prueba">
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArtProveedor">
+      <EntityTypeMapping TypeName="ICAModel.ArtProveedor">
+        <MappingFragment StoreEntitySet="ArtProveedor">
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="PRVId" ColumnName="PRVId" />
+          <ScalarProperty Name="ARTId" ColumnName="ARTId" />
+          <ScalarProperty Name="EVAId" ColumnName="EVAId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proveedor">
+      <EntityTypeMapping TypeName="ICAModel.Proveedor">
+        <MappingFragment StoreEntitySet="Proveedor">
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ClaveProveedor" ColumnName="ClaveProveedor" />
+          <ScalarProperty Name="PRVId" ColumnName="PRVId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProveedorContacto">
+      <EntityTypeMapping TypeName="ICAModel.ProveedorContacto">
+        <MappingFragment StoreEntitySet="ProveedorContacto">
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="Puesto" ColumnName="Puesto" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="PRVId" ColumnName="PRVId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RangoTorqueVacio">
+      <EntityTypeMapping TypeName="ICAModel.RangoTorqueVacio">
+        <MappingFragment StoreEntitySet="RangoTorqueVacio">
+          <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="Resultado" ColumnName="Resultado" />
+          <ScalarProperty Name="TamGrano" ColumnName="TamGrano" />
+          <ScalarProperty Name="ValorTorque" ColumnName="ValorTorque" />
+          <ScalarProperty Name="Base" ColumnName="Base" />
+          <ScalarProperty Name="RTVId" ColumnName="RTVId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RangoCriterio">
+      <EntityTypeMapping TypeName="ICAModel.RangoCriterio">
+        <MappingFragment StoreEntitySet="RangoCriterio">
+          <ScalarProperty Name="MUsuarioId" ColumnName="MUsuarioId" />
+          <ScalarProperty Name="MFechaHora" ColumnName="MFechaHora" />
+          <ScalarProperty Name="ValorMax" ColumnName="ValorMax" />
+          <ScalarProperty Name="ValorMin" ColumnName="ValorMin" />
+          <ScalarProperty Name="Base" ColumnName="Base" />
+          <ScalarProperty Name="CRTId" ColumnName="CRTId" />
+          <ScalarProperty Name="RNGId" ColumnName="RNGId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

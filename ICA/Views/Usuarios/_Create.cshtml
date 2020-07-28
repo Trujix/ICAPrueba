@@ -1,0 +1,98 @@
+﻿
+
+<div class="modal-header">
+    <h5 class="modal-title">Agregar Usuario</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form id="valor-form">
+        @Html.AntiForgeryToken()
+        <div class="form-group col-6" id="contenedor-select2">
+            <label>Personal/Otros</label>
+            <select id="selectorNombre" name="nombre" required class="form-control">
+                @foreach (var item in ViewBag.Usuarios)
+                {
+                    <option data-user="@item.User" value="@item.Nombre">@item.Nombre</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Perfil</label>
+            @Html.DropDownList("perid", new SelectList(ViewBag.Perfiles, "Value", "Text"), new { @class = "form-control", @required = "true"})
+        </div>
+        <div class="form-group">
+            <label>Usuario</label>
+            <input type="text" maxlength="50" required readonly class="form-control" id="usuario" name="usuario">
+        </div>
+        <div class="form-group">
+            <label>Estatus</label>
+            @Html.DropDownList("estatus", new SelectList(ViewBag.EstatusList, "Value", "Text", "A"), new { @class = "form-control", @readonly = "true", @required = "true", @disabled = "true" })
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success btn-sm" id="guardar-valor" data-dismiss="modal">Guardar</button>
+    <button type="button" class="btn btn-light btn-sm" data-dismiss="modal"> Cancelar</button>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#selectorNombre').select2({});
+        $('#guardar-valor').click(function (e) {
+            var $form = $("#valor-form");
+            if (!$form.valid()) return false;
+            var data = {
+                __RequestVerificationToken: $form.find('input[name="__RequestVerificationToken"]').val(),
+                usuario: {
+                    Usuario1: $form.find('#usuario').val(),
+                    Estatus: $form.find('#estatus').val(),
+                    Nombre: $form.find('#selectorNombre').val(),
+                    UsuarioPerfil: [{
+                        PERId: $form.find('#perid').val(),
+                        Estatus: $form.find('#estatus').val()
+                    }]
+                }
+            };
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Create", "Usuarios")',
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                      location.reload();
+                    
+                }
+
+            });
+        });
+
+        $("#selectorNombre").change(function () {
+            var $selector = $(this);
+            var usuario = $selector.find(':selected').data('user');
+            $('#usuario').val(usuario);
+        });
+
+        $("#selectorNombre").change();
+
+    });
+</script>
+<style>
+    span.select2-container {
+        width:263px!important;
+    }
+    span.select2-selection--single {
+        padding-left: 13px !important;
+        height: 36px !important;
+    }
+
+    span.select2-selection__rendered{
+        padding:0px!important;
+    }
+
+
+    #contenedor-select2{
+        padding:0!important;
+    }
+
+</style>

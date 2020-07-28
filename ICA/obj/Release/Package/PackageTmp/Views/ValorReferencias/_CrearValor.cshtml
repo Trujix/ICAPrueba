@@ -1,0 +1,58 @@
+﻿
+
+@model ICA.Models.ValorReferencia
+<div class="modal-header">
+    <h5 class="modal-title">Agregar valores a la Referencia</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form id="valor-form">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="VARClave" value="@Model.VARClave" />
+        <div class="form-group">
+            <label>Clave</label>
+            <input type="text" maxlength="10" required class="form-control" id="VAVClave" name="VAVClave">
+        </div>
+        <div class="form-group">
+            <label>Descripción</label>
+            <input type="text" maxlength="256" required class="form-control" id="descripcion" name="descripcion">
+        </div>
+        <div class="form-group">
+            <label>Estatus</label>
+            @Html.DropDownList("estatus", new SelectList(ViewBag.EstatusList, "Value", "Text", "A"), new { @class = "form-control", @required = "true" })
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success btn-sm" id="guardar-valor" data-dismiss="modal">Guardar</button>
+    <button type="button" class="btn btn-light btn-sm" id="regresar-valor">Cancelar</button>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var urlValor = "@Url.Action("Details", "ValorReferencias", new { id = Model.VARClave })";
+
+        $('#guardar-valor').click(function (e) {
+            var $form = $("#valor-form");
+            if (!$form.valid()) return false;
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Create", "ValorReferencias")',
+                data: $form.serialize(),
+                success: function (response) {
+                    $('.modal-content').load(urlValor, function (result) {
+                        $('#modal-container').modal({ show: true });
+                    });
+                }
+
+            });
+        });
+
+        $('#regresar-valor').click(function (e) {
+            $('.modal-content').load(urlValor, function (result) {
+                $('#modal-container').modal({ show: true });
+            });
+        });
+    });
+</script>

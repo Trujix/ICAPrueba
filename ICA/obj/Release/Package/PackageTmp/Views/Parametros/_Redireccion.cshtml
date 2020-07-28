@@ -1,0 +1,25 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title">¿Desea ir a la pantalla principal?</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success btn-sm" id="ir-home" data-dismiss="modal">Si</button>
+    <button type="button" class="btn btn-light btn-sm" data-dismiss="modal" id="btn-no">No</button>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        $('#ir-home').click(function (e) {
+            window.location.href = "@Url.Action("Index","Home")";
+        });
+
+        $("#btn-no").click(function (e) {
+            location.reload();
+        });
+
+    });
+</script>

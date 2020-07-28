@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ac8d6226-d322-4c6c-8bcc-69d739549d25" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://wslogin.mikiosko.mx/Login.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Login1.disco" MetadataType="Disco" ID="5ae241bb-7e7a-4ab3-80a9-138e29053b67" SourceId="1" SourceUrl="https://wslogin.mikiosko.mx/Login.svc?disco" />
+    <MetadataFile FileName="Login1.wsdl" MetadataType="Wsdl" ID="225723d2-5e78-4e24-8847-865a94f112e8" SourceId="1" SourceUrl="https://wslogin.mikiosko.mx/Login.svc?wsdl" />
+    <MetadataFile FileName="Login4.xsd" MetadataType="Schema" ID="714aedd1-396b-4962-8164-5e53e67b2678" SourceId="1" SourceUrl="https://wslogin.mikiosko.mx/Login.svc?xsd=xsd2" />
+    <MetadataFile FileName="Login41.xsd" MetadataType="Schema" ID="d4bce78e-55a8-43cf-9cb6-3ebf8ee63531" SourceId="1" SourceUrl="https://wslogin.mikiosko.mx/Login.svc?xsd=xsd3" />
+    <MetadataFile FileName="Login42.xsd" MetadataType="Schema" ID="0dcad918-6dd2-4c68-b569-0b3a302c1c94" SourceId="1" SourceUrl="https://wslogin.mikiosko.mx/Login.svc?xsd=xsd0" />
+    <MetadataFile FileName="Login43.xsd" MetadataType="Schema" ID="d949a6cc-d793-46ba-bb0d-2d2f52db4135" SourceId="1" SourceUrl="https://wslogin.mikiosko.mx/Login.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

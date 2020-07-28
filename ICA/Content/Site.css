@@ -1,0 +1,146 @@
+﻿body {
+    padding-top: 0px;
+    padding-bottom: 20px;
+    font-size: 14px!important;
+}
+
+label {
+    font-size: 14px !important;
+}
+
+h3 {
+    font-size: 26px!important;
+}
+
+h1{
+    font-size: 30px!important;
+}
+
+button {
+    font-size: 14px !important;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+header #pleca {
+    background-image: url("../img/kiosko-logo-con-pleca.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100px;
+}
+
+    header #pleca img {
+        height: 80px;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+header #tituloHeader {
+    background-color: #16ac65;
+    text-align: center;
+    font-size: 33px;
+}
+
+header nav {
+    background-color: #16ac65;
+}
+
+header nav a {
+    color: #000!important;
+}
+
+
+
+header nav a:hover{
+    color: #FFFFFF;
+}
+
+    header nav #menuSalir {
+        position: absolute;
+        right: 15px;
+    }
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default 
+input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+
+.autocomplete-suggestions {
+    border: 1px solid #999;
+    background: #FFF;
+    overflow: auto;
+}
+
+.autocomplete-suggestion {
+    padding: 2px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.autocomplete-selected {
+    background: #F0F0F0;
+}
+
+.autocomplete-suggestions strong {
+    font-weight: normal;
+    color: #3399FF;
+}
+
+.autocomplete-group {
+    padding: 2px 5px;
+}
+
+    .autocomplete-group strong {
+        display: block;
+        border-bottom: 1px solid #000;
+    }
+
+.error {
+    color:red!important;
+}
+
+.list-group-item.active {
+    background-color: #16ac65 !important;
+    border-color: #16ac65 !important;
+}
+
+.list-group-item.active {
+    color: #FFFFFF !important;
+}
+
+#nav-tab > a {
+    color: #16ac65 !important;
+}
+
+.list-group-item {
+    height: 30px !important;
+    line-height: 1 !important;
+    margin-bottom: 0px !important;
+    padding: 0.35rem 1.25rem !important;
+}
+
+.cal-month-day{
+    padding: 2px;
+}
+
+.cal-evento {
+    height: 20px !important;
+    font-size: 10px !important;
+    line-height: .5 !important;
+}
+
+.cal-ver-mas{
+    float: right;
+}

@@ -1,0 +1,75 @@
+﻿@model ICA.Models.Programacion
+<div class="modal-header">
+    
+        @if (@Model.PROId != 0)
+        {
+             <h5 class="modal-title">
+            ¿Esta usted seguro que desea eliminar la programación? </h5>
+
+    }
+    else
+    {
+        <h5 class="modal-title">
+            La programación seleccionada no existe</h5>
+        }
+
+        <button type = "button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+</div>
+<div class="modal-body">
+    <form id="valor-form1">
+        @Html.AntiForgeryToken()
+        @if (@Model.PROId != 0)
+        {
+            <p>Si realiza la acción ya no podrá revertir los cambios.</p>
+        }
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success btn-sm" id="guardar-valor" data-dismiss="modal">Aceptar</button>
+    <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Cancelar</button>
+</div>
+<script type="text/javascript">
+    $(function () {
+        if (@Model.PROId == 0) {
+            toastr["error"]("Programación no encontrada");
+        } else {
+
+
+            $('#guardar-valor').click(function (e) {
+                $(".pace").removeClass('pace-inactive');
+                var $form = $("#valor-form1");
+                //if (!$form.valid()) return false;
+
+
+                var data = {
+                    __RequestVerificationToken: $form.find('input[name="__RequestVerificationToken"]').val(),
+                    programacion: {
+                        PROId: "@Model.PROId"
+                    }
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Delete", "Programacion")',
+                    data: data,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.estatus == true) {
+                            toastr["success"](response.mensaje);
+                            //mostrarResumen();
+                        } else {
+                            toastr["error"](response.mensaje);
+                        }
+                        $(".pace").addClass('pace-inactive');
+                    }
+
+                });
+            });
+        }
+
+    });
+</script>
+

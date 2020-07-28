@@ -1,0 +1,207 @@
+﻿@model ICA.Models.Criterio
+<div class="modal-header">
+    <h5 class="modal-title">Editar Criterio @Model.Nombre</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form id="valor-form">
+        @Html.AntiForgeryToken()
+        <div class="form-row ">
+            <div class="col-lg-3 col-md-6">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" maxlength="50" required class="form-control" id="nombre" name="nombre" value="@Model.Nombre">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea cols="20" rows="3" required class="form-control" id="descripcion" name="descripcion">@Model.Descripcion</textarea>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label>Estatus</label>
+                @Html.DropDownList("estatus", new SelectList(ViewBag.EstatusList, "Value", "Text", Model.Estatus), new { @class = "form-control", @required = "true" })
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label>Clasificación</label>
+                @Html.DropDownList("Clasificacion", new SelectList(ViewBag.ClasificacionList, "Value", "Text", Model.Clasificacion), new { @class = "form-control", @required = "true" })
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label>Evaluación posterior</label>
+                @Html.DropDownList("Ev_Posterior", new SelectList(ViewBag.DecisionList, "Value", "Text", Model.Ev_Posterior), new { @class = "form-control", @required = "true" })
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label>Tipo Respuesta</label>
+                @Html.DropDownList("TipoRespuesta", new SelectList(ViewBag.TRespuestaList, "Value", "Text", Model.TipoRespuesta), new { @class = "form-control", @required = "true" })
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label>Valor Referencia</label>
+                <input type="text" class="form-control" id="ValorReferencia" name="ValorReferencia" value="@Model.ValorReferencia" @ViewBag.ValorReferencia maxlength="10">
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label>Evidencia Obligatoria</label>
+                @Html.DropDownList("EvidenciaObli", new SelectList(ViewBag.DecisionList, "Value", "Text", Model.EvidenciaObli), new { @class = "form-control", @required = "true" })
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="form-group">
+                    <label>Nº Tomas</label>
+                    <input type="number" step="1" required class="form-control" id="NoTomas" name="NoTomas" value="@Model.NoTomas">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label>Tipo Equipo</label>
+                @Html.DropDownList("TipoEquipo", new SelectList(ViewBag.TEquipoList, "Value", "Text", Model.TipoEquipo), new { @class = "form-control", @required = "true" })
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label>Sección Producto</label>
+                @Html.DropDownList("EquipoProducto", new SelectList(ViewBag.CEquipoProList, "Value", "Text", Model.EquipoProducto), new { @class = "form-control", @required = "true" })
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label>Precargado</label>
+                @Html.DropDownList("Precargado", new SelectList(ViewBag.DecisionList, "Value", "Text", Model.Precargado), new { @class = "form-control", @required = "true" })
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label>Permitir Vacío</label>
+                @Html.DropDownList("PermitirVacio", new SelectList(ViewBag.DecisionList, "Value", "Text", Model.PermitirVacio), new { @class = "form-control", @required = "true" })
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label>Permitir Comentario</label>
+                @Html.DropDownList("Comentario", new SelectList(ViewBag.DecisionList, "Value", "Text", Model.Comentario), new { @class = "form-control", @required = "true" })
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label>Condicionante</label>
+                @Html.DropDownList("Condicionante", new SelectList(ViewBag.DecisionList, "Value", "Text", true), new { @class = "form-control", @required = "true" })
+            </div>
+            <div class="col-lg-3 col-md-6 @ViewBag.CondicionanteClass">
+                <label>Criterio Condicionante</label>
+                <input type="text" class="form-control " id="CRTId_Cond" name="CRTId_Cond" value="@ViewBag.CondicionanteD">
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label>Operación Global</label>
+                @Html.DropDownList("OperacionGlobal", new SelectList(ViewBag.OperacionList, "Value", "Text", Model.OperacionGlobal), new { @class = "form-control", @required = "true" })
+            </div>
+        </div>
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success btn-sm" id="guardar-valor" data-dismiss="modal">Guardar</button>
+    <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Cancelar</button>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#Clasificacion").change(function () {
+            var valor = $(this).val();
+            if (valor == 'P') {
+                //$("#EquipoProducto option[value='NN']").prop("selected", true);
+                $("#TipoEquipo option[value='N']").prop("selected", true);
+                $("#TipoEquipo").prop("disabled", true);
+                //$("#EquipoProducto").prop("disabled", true);
+            } else {
+                $("#TipoEquipo").prop("disabled", false);
+                $("#EquipoProducto").prop("disabled", false);
+            }
+
+        });
+        $("#Clasificacion").change();
+
+        var criterio = "@Model.CRTId_Cond";
+        $("#Condicionante").val("@Model.Condicionante");
+        $("#Condicionante").change(function(){
+            if ($("#TipoRespuesta").val() != 'S') {
+                $('#CRTId_Cond').prop("required", false);
+                $('#CRTId_Cond').parent().slideUp();
+            }
+            else if ($(this).val() == "False" && $("#TipoRespuesta").val() == 'S') {
+                $('#CRTId_Cond').prop("required", true);
+                $('#CRTId_Cond').parent().slideDown();
+                $('#CRTId_Cond').parent().removeClass("d-none");
+            }
+
+        });
+        $("#TipoRespuesta").change(function () {
+            if ($(this).val() == "L") {
+                $('#ValorReferencia').prop("required", true);
+                $('#ValorReferencia').prop("disabled", false);
+            }
+            else {
+                $('#ValorReferencia').prop("required", false);
+                $('#ValorReferencia').prop("disabled", true);
+            }
+
+
+            if ($(this).val() != "S") {
+                $('#CRTId_Cond').prop("required", false);
+                $('#CRTId_Cond').parent().slideUp();
+            }
+
+        });
+
+        $('#CRTId_Cond').autocomplete({
+            serviceUrl: '/Criterios/Search',
+            params: {
+                TipoEquipo: $('#TipoEquipo').val(),
+                EquipoProducto: $("#EquipoProducto").val()
+            },
+            transformResult: function (response) {
+                return {
+                    suggestions: $.map(JSON.parse(response), function (dataItem) {
+                        return { value: dataItem.Nombre, data: dataItem.CRTId };
+                    })
+                };
+            },
+            onSelect: function (suggestion) {
+                criterio = suggestion.data;
+            }
+        });
+
+
+        $('#guardar-valor').click(function (e) {
+            var $form = $("#valor-form");
+            if (!$form.valid()) return false;
+            var data = {
+                __RequestVerificationToken: $form.find('input[name="__RequestVerificationToken"]').val(),
+                criterio: {
+                    Nombre: $form.find('#nombre').val(),
+                    Descripcion: $form.find('#descripcion').val(),
+                    Clasificacion: $form.find('#Clasificacion').val(),
+                    Ev_Posterior: $form.find('#Ev_Posterior').val(),
+                    TipoRespuesta: $form.find('#TipoRespuesta').val(),
+                    EvidenciaObli: $form.find('#EvidenciaObli').val(),
+                    NoTomas: $form.find('#NoTomas').val(),
+                    TipoEquipo: $form.find('#TipoEquipo').val(),
+                    Precargado: $form.find('#Precargado').val(),
+                    PermitirVacio: $form.find('#PermitirVacio').val(),
+                    Comentario: $form.find('#Comentario').val(),
+                    Condicionante: $form.find('#Condicionante').val(),
+                    CRTId_Cond: criterio,
+                    Estatus: $form.find('#estatus').val(),
+                    CRTId: @Model.CRTId,
+                    ValorReferencia: null,
+                    EquipoProducto: $form.find('#EquipoProducto').val(),
+                    OperacionGlobal: $form.find('#OperacionGlobal').val()
+                }
+            };
+            if ($("#TipoRespuesta").val() === "L") {
+                data.criterio.ValorReferencia = $('#ValorReferencia').val();
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Edit", "Criterios")',
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                        location.reload();
+                }
+
+            });
+        });
+
+    });
+</script>
+
+

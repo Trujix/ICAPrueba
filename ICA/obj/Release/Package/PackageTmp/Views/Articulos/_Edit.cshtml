@@ -1,0 +1,145 @@
+﻿
+@model ICA.Models.Articulo
+<div class="modal-header">
+    <h5 class="modal-title">Editar Artículo @Model.Nombre</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form id="valor-form">
+        @Html.AntiForgeryToken()
+        <div class="form-row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>SKU</label>
+                    <select id="SKU" required>
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" maxlength="150" required class="form-control" id="nombre" name="nombre"  value="@Model.Nombre" disabled>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>Tipo Producto</label>
+                @Html.DropDownList("TipoProducto", new SelectList(ViewBag.TipoProdList, "Value", "Text", Model.TipoProducto), new { @class = "form-control", @required = "true" })
+            </div>
+            <div class=" col-md-6">
+                <label>Clasificación ICA</label>
+                @Html.DropDownList("ClasificacionICA", new SelectList(ViewBag.ClasificacionList, "Value", "Text", Model.ClasificacionICA), new { @class = "form-control", @required = "true" })
+            </div>
+            <div class="col-md-6">
+                <label>Estatus</label>
+                @Html.DropDownList("estatus", new SelectList(ViewBag.EstatusList, "Value", "Text", Model.Estatus), new { @class = "form-control", @required = "true" })
+            </div>
+        </div>
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success btn-sm" id="guardar-valor" data-dismiss="modal">Guardar</button>
+    <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Cancelar</button>
+</div>
+<script type="text/javascript">
+    $(function () {
+        iniciarlizarSelectSKU();
+        $("#TipoProducto").select2({});
+        $('#guardar-valor').click(function (e) {
+            var $form = $("#valor-form");
+            if (!$form.valid()) return false;
+            var data = {
+                __RequestVerificationToken: $form.find('input[name="__RequestVerificationToken"]').val(),
+                articulo: {
+                    ARTId: "@Model.ARTId",
+                    Nombre: $form.find('#nombre').val(),
+                    Estatus: $form.find('#estatus').val(),
+                    SKU: $form.find('#SKU').val(),
+                    TipoProducto: $form.find('#TipoProducto').val(),
+                    ClasificacionICA: $form.find('#ClasificacionICA').val()
+                }
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Edit", "Articulos")',
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        location.reload();
+                    }
+                }
+
+            });
+        });
+
+    });
+
+    function iniciarlizarSelectSKU() {
+        var skus = localStorage.getItem("skus");
+        if (skus == null) {
+            $.ajax({
+                url: 'https://icaservice.mikiosko.mx/api/articulos',
+                headers: {
+                    "Authorization": "Basic " + btoa('SisICA' + ":" + 'SisICA2020')
+                },
+                type: "POST", /* or type:"GET" or type:"PUT" */
+                dataType: "json",
+                data: {
+                },
+                success: function (response) {
+                    localStorage.setItem("skus", JSON.stringify(response));
+                    llenarSelectSKU();
+                },
+                error: function () {
+                    console.log("error");
+                }
+            });
+        } else
+            llenarSelectSKU();
+
+
+    }
+
+    function llenarSelectSKU() {
+        var skus = localStorage.getItem("skus");
+        skus = JSON.parse(skus);
+        var html = "";
+        $.each(skus, function (i, art) {
+            html += `<option value="${art.sku}">${art.Descripcion}</option>`;
+        });
+        
+        $("#SKU").append(html);
+        $('#SKU').select2({});
+        $('#SKU').change(function () {
+            $("#nombre").val($("#SKU option:selected").text());
+        }); 
+
+        $("#SKU").val('@Model.SKU');
+        $('#SKU').trigger('change');
+    }
+</script>
+<style>
+    span.select2-selection--single {
+        padding-left: 13px !important;
+        height: 36px !important;
+        max-width: 464px;
+    }
+
+    span.select2-selection__rendered {
+        padding: 0px !important;
+    }
+
+
+    #contenedor-select2 {
+        padding: 0 !important;
+    }
+
+    span.select2-dropdown.select2-dropdown--below {
+        max-width: 464px;
+    }
+</style>

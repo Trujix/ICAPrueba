@@ -1,0 +1,199 @@
+﻿@model dynamic
+@using ICA.Utilities
+@using ICA.Models
+<div class="row">
+    <div class="col-sm-12">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="rangocriterio-tab" data-toggle="tab" href="#rangocriterio" role="tab" aria-controls="rangocriterio" aria-selected="true">Rango Criterio</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="variacionpermitida-tab" data-toggle="tab" href="#variacionpermitida" role="tab" aria-controls="variacionpermitida" aria-selected="false">Variación Permitida</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="rangotorque-tab" data-toggle="tab" href="#rangotorque" role="tab" aria-controls="rangotorque" aria-selected="false">Rango Torque Vacío</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="rangosTabContenido">
+            <div class="tab-pane fade show active" id="rangocriterio" role="tabpanel" aria-labelledby="rangocriterio-tab">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+                    <h1 class="h2">Rango Criterios</h1>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped table-bordered rangostablas" id="rangosCriterioTabla">
+                            <thead>
+                                <tr>
+                                    <th>Nombre Criterio</th>
+                                    <th>Id Criterio</th>
+                                    <th>Nombre Base</th>
+                                    <th>Clave Base</th>
+                                    <th>Valor Mínimo</th>
+                                    <th>Valor Máximo</th>
+                                    <th>Operaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (RangoCriterioTabla item in Model.RangoCriterio)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.NombreCriterio)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CRTId)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.NombreBase)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ClaveBase)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ValorMin)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ValorMax)</td>
+                                        <td class="text-center">
+                                            <!--@@if (Helpers.TieneAcceso((int)Utilities.Modulos.Articulos, "Actualizar"))
+                                            {-->
+                                            @Html.ActionLink("Editar", "EditViewRC", new { id = item.RNGId }, new { @class = "modal-link btn btn-sm btn-primary" })
+                                            <!--}-->
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="variacionpermitida" role="tabpanel" aria-labelledby="variacionpermitida-tab">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+                    <h1 class="h2">Variación Permitida</h1>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <!--@@if (Helpers.TieneAcceso((int)Utilities.Modulos.Articulos, "Insertar"))
+                        {-->
+                            @Html.ActionLink("Agregar Variación Permitida", "CreateViewVP", null, new { @class = "modal-link btn btn-sm btn-success" })
+                        <!--}-->
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped table-bordered rangostablas" id="variacionPermitidaTabla">
+                            <thead>
+                                <tr>
+                                    <th>Valor Mínimo</th>
+                                    <th>Valor Máximo</th>
+                                    <th>Variación Permitida</th>
+                                    <th>Tipo</th>
+                                    <th>Operaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (VariacionPermitida item in Model.VariacionPermitida)
+                                {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.ValMin)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ValMax)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.VariacionP)</td>
+                                    <td> @Html.ValorDescripcion("TVARIACION", item.Tipo)</td>
+                                    <td class="text-center">
+                                        <!--@@if (Helpers.TieneAcceso((int)Utilities.Modulos.Articulos, "Actualizar"))
+                                        {-->
+                                            @Html.ActionLink("Editar", "EditViewVP", new { id = item.VAPId }, new { @class = "modal-link btn btn-sm btn-primary" })
+                                        <!--}-->
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="rangotorque" role="tabpanel" aria-labelledby="rangotorque-tab">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+                    <h1 class="h2">Rango Torque Vacío</h1>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <!--@@if (Helpers.TieneAcceso((int)Utilities.Modulos.Articulos, "Insertar"))
+                        {-->
+                        @Html.ActionLink("Agregar Torque en Vacío", "CreateViewRTV", null, new { @class = "modal-link btn btn-sm btn-success" })
+                        <!--}-->
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped table-bordered rangostablas" id="rangosTorqueTabla">
+                            <thead>
+                                <tr>
+                                    <th>Base</th>
+                                    <th>Valor Torque</th>
+                                    <th>Tamaño Grano</th>
+                                    <th>Resultado</th>
+                                    <th>Estatus</th>
+                                    <th>Operaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (RangoTorqueVacio item in Model.RangosTorque)
+                                {
+                                    <tr>
+                                        <td>@Html.ValorDescripcion("BASEFRA", item.Base)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ValorTorque)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TamGrano)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Resultado)</td>
+                                        <td> @Html.ValorDescripcion("ESTATUS", item.Estatus)</td>
+                                        <td class="text-center">
+                                            <!--@@if (Helpers.TieneAcceso((int)Utilities.Modulos.Articulos, "Actualizar"))
+                                            {-->
+                                            @Html.ActionLink("Editar", "EditViewRTV", new { id = item.RTVId }, new { @class = "modal-link btn btn-sm btn-primary" })
+                                            <!--}-->
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-container" class="modal" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        var TablaRangosCriteriosDT, TablaVariacionesDT, TablaRangosTorquesDT;
+        $(function () {
+            $(document).on('click', '.modal-link', function (e) {
+                e.preventDefault();
+                var link = $(this);
+                $('.modal-content').load(link[0].href, function (result) {
+                    $('#modal-container').modal({ show: true });
+                });
+            });
+
+            //clear modal cache, so that new content can be loaded
+            $('#modal-container').on('hidden.bs.modal', function () {
+                $(this).removeData('bs.modal');
+            });
+
+            TablaRangosCriteriosDT = $('#rangosCriterioTabla').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+                }
+            });
+
+            TablaVariacionesDT = $('#variacionPermitidaTabla').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+                }
+            });
+
+            TablaRangosTorquesDT = $('#rangosTorqueTabla').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+                }
+            });
+        });
+    </script>
+}

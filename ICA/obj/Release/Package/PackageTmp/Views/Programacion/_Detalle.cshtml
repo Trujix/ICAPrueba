@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ICA.Models.Evaluacion>
+@using ICA.Utilities
+<div class="modal-header">
+    <h5 class="modal-title">@ViewBag.Zona</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered" id="evaluaciones">
+                <thead>
+                    <tr>
+                        <th>Clave Tienda</th>
+                        <th>Nombre</th>
+                        <th>Auditor</th>
+                        <th>Fecha</th>
+                        <th>Estatus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClaveTienda)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreTienda)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Auditor)
+                            </td>
+                            <td>
+                                @if (item.FechaEvaluacion != null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.FechaEvaluacion).ToString().Substring(0,9);
+                                }
+
+                            </td>
+                            <td>
+                                @Html.ValorDescripcion("ESTATUSEV", item.Estatus)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#evaluaciones').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        }
+    });
+</script>

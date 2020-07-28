@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WcfLoginLDAP" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WcfLoginLDAP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfProveedor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Proveedor" nillable="true" type="tns:Proveedor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProveedor" nillable="true" type="tns:ArrayOfProveedor" />
+  <xs:complexType name="Proveedor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VendID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Proveedor" nillable="true" type="tns:Proveedor" />
+  <xs:complexType name="ArrayOfZona">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Zona" nillable="true" type="tns:Zona" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfZona" nillable="true" type="tns:ArrayOfZona" />
+  <xs:complexType name="Zona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Zona" nillable="true" type="tns:Zona" />
+  <xs:complexType name="ArrayOfTienda">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Tienda" nillable="true" type="tns:Tienda" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTienda" nillable="true" type="tns:ArrayOfTienda" />
+  <xs:complexType name="Tienda">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SiteId" type="xs:long" />
+      <xs:element minOccurs="0" name="ZonaId" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Tienda" nillable="true" type="tns:Tienda" />
+  <xs:complexType name="ArrayOfCategoriaSubCategoria">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CategoriaSubCategoria" nillable="true" type="tns:CategoriaSubCategoria" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCategoriaSubCategoria" nillable="true" type="tns:ArrayOfCategoriaSubCategoria" />
+  <xs:complexType name="CategoriaSubCategoria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Categoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CategoriaId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubCategoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubCategoriaId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CategoriaSubCategoria" nillable="true" type="tns:CategoriaSubCategoria" />
+  <xs:complexType name="ArrayOfPromocionesHeaderZona">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PromocionesHeaderZona" nillable="true" type="tns:PromocionesHeaderZona" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPromocionesHeaderZona" nillable="true" type="tns:ArrayOfPromocionesHeaderZona" />
+  <xs:complexType name="PromocionesHeaderZona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Categorias" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Departamentos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Divisiones" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDCategorias" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDDepartamentos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDDivisiones" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDZonas" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mecanica" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PE_Activa" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PE_Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PE_Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PE_Tipo" type="xs:int" />
+      <xs:element minOccurs="0" name="PE_TipoMeta" type="xs:int" />
+      <xs:element minOccurs="0" name="PE_ValorMeta" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Zonas" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PromocionesHeaderZona" nillable="true" type="tns:PromocionesHeaderZona" />
+  <xs:complexType name="ArrayOfPromocionesHeaderTienda">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PromocionesHeaderTienda" nillable="true" type="tns:PromocionesHeaderTienda" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPromocionesHeaderTienda" nillable="true" type="tns:ArrayOfPromocionesHeaderTienda" />
+  <xs:complexType name="PromocionesHeaderTienda">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Categorias" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Departamentos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Divisiones" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDCategorias" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDDepartamentos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDDivisiones" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mecanica" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PE_Activa" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PE_Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PE_Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PE_Tipo" type="xs:int" />
+      <xs:element minOccurs="0" name="PE_TipoMeta" type="xs:int" />
+      <xs:element minOccurs="0" name="PE_ValorMeta" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Tiendas" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PromocionesHeaderTienda" nillable="true" type="tns:PromocionesHeaderTienda" />
+  <xs:complexType name="ArrayOfPromocionesDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PromocionesDetail" nillable="true" type="tns:PromocionesDetail" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPromocionesDetail" nillable="true" type="tns:ArrayOfPromocionesDetail" />
+  <xs:complexType name="PromocionesDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Art_Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Categoria" type="xs:int" />
+      <xs:element minOccurs="0" name="Depto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PED_ArtOrgCodigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PED_TipoArtOrg" type="xs:int" />
+      <xs:element minOccurs="0" name="PED_TipoDescuento" type="xs:int" />
+      <xs:element minOccurs="0" name="PED_ValorDescuento" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PE_Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubCategoria" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PromocionesDetail" nillable="true" type="tns:PromocionesDetail" />
+  <xs:complexType name="ArrayOfTipoPromocion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TipoPromocion" nillable="true" type="tns:TipoPromocion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTipoPromocion" nillable="true" type="tns:ArrayOfTipoPromocion" />
+  <xs:complexType name="TipoPromocion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PE_Tipo" type="xs:int" />
+      <xs:element minOccurs="0" name="PE_TipoDescripcion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TipoPromocion" nillable="true" type="tns:TipoPromocion" />
+  <xs:complexType name="ArrayOfDivisiones">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Divisiones" nillable="true" type="tns:Divisiones" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDivisiones" nillable="true" type="tns:ArrayOfDivisiones" />
+  <xs:complexType name="Divisiones">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Division" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DivisionId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Divisiones" nillable="true" type="tns:Divisiones" />
+  <xs:complexType name="ArrayOfDepartamentos">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Departamentos" nillable="true" type="tns:Departamentos" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDepartamentos" nillable="true" type="tns:ArrayOfDepartamentos" />
+  <xs:complexType name="Departamentos">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Departamento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DepartamentoId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DivisionId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Departamentos" nillable="true" type="tns:Departamentos" />
+  <xs:complexType name="ArrayOfCategorias">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Categorias" nillable="true" type="tns:Categorias" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCategorias" nillable="true" type="tns:ArrayOfCategorias" />
+  <xs:complexType name="Categorias">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Categoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CategoriaId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DepartamentoId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DivisionId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdCatFull" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Categorias" nillable="true" type="tns:Categorias" />
+  <xs:complexType name="ArrayOfSubCategorias">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SubCategorias" nillable="true" type="tns:SubCategorias" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSubCategorias" nillable="true" type="tns:ArrayOfSubCategorias" />
+  <xs:complexType name="SubCategorias">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Categoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CategoriaId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Departamento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DepartamentoId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DivisionId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdSubCatFull" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubCategoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubCategoriaId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SubCategorias" nillable="true" type="tns:SubCategorias" />
+</xs:schema>

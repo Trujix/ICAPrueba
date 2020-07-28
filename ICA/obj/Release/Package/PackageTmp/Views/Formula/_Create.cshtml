@@ -1,0 +1,99 @@
+﻿
+
+@model List<ICA.Models.Formula>
+<div class="modal-header">
+    <h5 class="modal-title">Registrar Fórmula</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form id="valor-form">
+        @Html.AntiForgeryToken()
+        <div class="form-row ">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <input type="text" maxlength="150" required class="form-control" id="descripcion" name="descripcion">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Procedimiento Almacenado</label>
+                    <input type="text" maxlength="250" required class="form-control" id="procAlmacenado" name="procAlmacenado">
+                </div>
+            </div>
+            <div class=" col-md-4">
+                <label>Estatus</label>
+                @Html.DropDownList("estatus", new SelectList(ViewBag.EstatusList, "Value", "Text", "A"), new { @class = "form-control", @required = "true" })
+            </div>
+        </div>
+        <div class="form-row ">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Elemento</label>
+                    @Html.DropDownList("elemento", new SelectList(ViewBag.ElementoList, "Value", "Text"), new { @class = "form-control", @required = "true" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Clasificación</label>
+                    <input type="text" maxlength="250" required class="form-control" id="clasificacion" name="clasificacion">
+                </div>
+            </div>
+            <div class=" col-md-4">
+                <div class="form-group">
+                    <label>Subclasificación</label>
+                    <input type="text" maxlength="250" required class="form-control" id="subclasificacion" name="subclasificacion">
+                </div>
+            </div>
+        </div>
+        <div class="form-row ">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Operación Global</label>
+                    @Html.DropDownList("operacionGlobal", new SelectList(ViewBag.OpList, "Value", "Text"), new { @class = "form-control", @required = "true" })
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success btn-sm" id="guardar-valor" data-dismiss="modal">Guardar</button>
+    <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Cancelar</button>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        $('#guardar-valor').click(function (e) {
+            var $form = $("#valor-form");
+            if (!$form.valid()) return false;
+            var data = {
+                __RequestVerificationToken: $form.find('input[name="__RequestVerificationToken"]').val(),
+                formula: {
+                    Descripcion: $form.find('#descripcion').val(),
+                    ProcAlmacenado: $form.find('#procAlmacenado').val(),
+                    Estatus: $form.find('#estatus').val(),
+                    Elemento: $form.find('#elemento').val(),
+                    ClasifiCA: $form.find('#clasificacion').val(),
+                    SubClasificacion: $form.find('#subclasificacion').val(),
+                    OperacionGlobal: $form.find('#operacionGlobal').val()
+                }
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Create", "Formula")',
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                        location.reload();
+                }
+
+            });
+        });
+
+    });
+</script>
+

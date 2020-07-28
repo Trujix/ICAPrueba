@@ -1,0 +1,513 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Asignación de criterios</h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-equipos-tab" data-toggle="tab" href="#nav-equipos" role="tab" aria-controls="nav-home" aria-selected="true">Equipos</a>
+                <a class="nav-item nav-link" id="nav-art-tab" data-toggle="tab" href="#nav-art" role="tab" aria-controls="nav-profile" aria-selected="false">Artículos</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-equipos" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="list-group">
+                    @foreach (var e in ViewBag.Equipos)
+                    {
+                        <a href="#" class="list-group-item list-group-item-action item-equipo" data-id="@e.EQPId">
+                            @e.Nombre
+                        </a>
+                    }
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-art" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <br />
+                <div class="row">
+                    <div class="input-group col-12">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="select-tipoProducto">Tipo Producto</label>
+                        </div>
+                        <select class="form-control" id="select-tipoProducto">
+                            @foreach (var c in ViewBag.TipoProdList)
+                            {
+                                <option value="@c.Value">@c.Text</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-12">
+                        <div class="list-group" id="list-articulos">
+                          
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>Listado de Criterios</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <span>Asignados</span>
+                    </div>
+                    <div class="col-6 text-right">
+                        <button class="btn btn-sm" id="btn-subir"><i class="fas fa-arrow-up"></i></button>
+                        <button class="btn btn-sm" id="btn-bajar"><i class="fas fa-arrow-down"></i></button>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-10">
+                        <div class="list-group" id="lista-asignados">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-danger" id="btn-quitar">Quitar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-4">
+                        <span>No Asignados</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="todos">
+                            <label class="form-check-label" for="defaultCheck1">
+                                Seleccionar Todos
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-4 input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="select-clasificacion">Clasificación </label>
+                        </div>
+                        <select class="form-control" id="select-clasificacion">
+                            @foreach (var c in ViewBag.ClasificacionList)
+                            {
+                                <option value="@c.Value">@c.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-4 input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="select-equipo">Tipo Equipo </label>
+                        </div>
+                        <select class="form-control" id="select-equipo">
+                            @foreach (var c in ViewBag.TipoEquipo)
+                            {
+                                <option value="@c.Value">@c.Text</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-10">
+                        <div class="list-group" id="lista-noasignados">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-success" id="btn-agregar">Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            var EQPId = null, ARTId = null, CRTId = null;
+            var arrayAsignados = [];
+
+            $("#select-tipoProducto").select2({});
+            $("#select-equipo").select2({});
+            $("#select-clasificacion").select2({});
+            $("#select-tipoProducto").change(function () {
+                 var tprod = $(this).val();
+                 var url = "@Url.Action("ObtenerProductos", "AsignacionCriterios", new { tprod="param-tprod" })";
+                url = url.replace("param-tprod", tprod);
+                 $.ajax({
+                        type: 'GET',
+                        url: url,
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response) {
+                                $("#list-articulos").empty();
+                                $.each(response, function (i, art) {
+                                    $("#list-articulos").append(` <a href="javascript://" class="list-group-item list-group-item-action item-art" data-id="${art.ARTId}">
+                                   ${art.Nombre}
+                                    </a>`);
+                                });
+                               $('.item-art').click(function () {
+                                    $('.item-art').removeClass('active');
+                                    $(this).addClass("active");
+                                    ARTId = $(this).data('id');
+                                    EQPId = null;
+                                    arrayAsignados = [];
+                                   obtenerCriteriosArt();
+                                });
+
+                            }
+                        }
+                    });
+            });
+
+           
+
+            
+
+            $("#todos").change(function () {
+                if ($(this).prop("checked")) {
+                    $(".noasignado-select").addClass("active");
+                } else {
+                    $(".noasignado-select").removeClass("active");
+                }
+            });
+
+            function obtenerCriteriosArt() {
+                 var url = "@Url.Action("ObtenerCriteriosArt", "AsignacionCriterios", new { ARTId = "param-ARTId" })";
+                url = url.replace("param-ARTId", ARTId);
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response) {
+                                $("#lista-asignados").empty();
+                                $("#lista-noasignados").empty();
+                                $.each(response, function (i, cr) {
+                                    $("#lista-asignados").append(` <a href="javascript://" class="list-group-item list-group-item-action select-asignado" data-id="${cr.CRTId}">
+                                    ${cr.Nombre}
+                                    </a>`);
+                                });
+
+                                $('.select-asignado').click(function () {
+                                    $('.select-asignado').removeClass('active');
+                                    $(this).addClass("active");
+                                    CRTId = $(this).data('id');
+                                });
+                                
+                                $("#select-clasificacion").change();
+                                $("#todos").prop("checked", false);
+                            }
+                        }
+                    });
+            }
+
+            $('.item-equipo').click(function () {
+                $('.item-equipo').removeClass('active');
+                $(this).addClass("active");
+                EQPId = $(this).data('id');
+                ARTId = null;
+                arrayAsignados = [];
+                obtenerCriteriosEquipos();
+            });
+
+            function obtenerCriteriosEquipos() {
+                var url = "@Url.Action("ObtenerCriteriosEquipos", "AsignacionCriterios", new { EQPId = "param-EQPId" })";
+                    url = url.replace("param-EQPId", EQPId);
+                 $.ajax({
+                        type: 'GET',
+                        url: url,
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response) {
+                                $("#lista-asignados").empty();
+                                $("#lista-noasignados").empty();
+                                $.each(response, function (i, cr) {
+                                    $("#lista-asignados").append(` <a href="javascript://" class="list-group-item list-group-item-action select-asignado" data-id="${cr.CRTId}" data-orden="${cr.Orden}">
+                                   ${cr.Nombre}
+                                    </a>`);
+                                });
+
+                                $('.select-asignado').click(function () {
+                                    $('.select-asignado').removeClass('active');
+                                    $(this).addClass("active");
+                                    CRTId = $(this).data('id');
+                                });
+
+                                $("#select-clasificacion").change();
+                                $("#todos").prop("checked", false);
+                            }
+                        }
+                    });
+            }
+
+            
+            $('#nav-equipos-tab, #nav-art-tab').click(function () {
+                $('.item-equipo,.item-art').removeClass('active');
+                $("#lista-asignados").empty();
+                $("#lista-noasignados").empty();
+            })
+
+            $('#nav-art-tab').click(function () {
+                $("#select-tipoProducto").change();
+            })
+
+            $("#select-clasificacion").change(buscarCriterios);
+            $("#select-equipo").change(buscarCriterios);
+
+            function buscarCriterios(){
+                var clas = $("#select-clasificacion").val();
+                var tipoEquipo = $("#select-equipo").val();
+                
+                if (EQPId != null) {
+                    var url = "@Url.Action("ObtenerCriteriosEquiposClasificacion", "AsignacionCriterios", new { EQPId = "param-ARTId" , clas = "param-clas", tipoEquipo = "param-equipo" })";
+                    url = url.replace("param-ARTId", EQPId);
+                    url = url.replace("param-clas", clas);
+                    url = url.replace("param-equipo", tipoEquipo);
+                    url = url.replace(/&amp;/g, "&");
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response) {
+                                $("#lista-noasignados").empty();
+                                $.each(response, function (i, cr) {
+                                    $("#lista-noasignados").append(` <a href="javascript://" class="list-group-item list-group-item-action noasignado-select" data-id="${cr.CRTId}">
+                                       ${cr.Nombre}
+                                        </a>`);
+                                });
+
+                                $(".noasignado-select").click(function () {
+                                    $(this).toggleClass("active");
+                                    if (!$(this).hasClass("active")){
+                                        $("#todos").prop("checked", false);
+                                    }
+                                
+                                });
+                                $("#todos").prop("checked", false);
+                            }
+                        }
+                    });
+                }
+                else {
+                    var url = "@Url.Action("ObtenerCriteriosArtClasificacion", "AsignacionCriterios", new { ARTId = "param-ARTId" , clas = "param-clas", tipoEquipo = "param-equipo" })";
+                    url = url.replace("param-ARTId", ARTId);
+                    url = url.replace("param-clas", clas);
+                    url = url.replace("param-equipo", tipoEquipo);
+                    url = url.replace(/&amp;/g, "&");
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response) {
+                                $("#lista-noasignados").empty();
+                                $.each(response, function (i, cr) {
+                                    $("#lista-noasignados").append(` <a href="javascript://" class="list-group-item list-group-item-action noasignado-select" data-id="${cr.CRTId}">
+                                       ${cr.Nombre}
+                                        </a>`);
+                                });
+
+                                $(".noasignado-select").click(function () {
+                                    $(this).toggleClass("active");
+                                    if (!$(this).hasClass("active")) {
+                                        $("#todos").prop("checked", false);
+                                    }
+                                });
+                                $("#todos").prop("checked", false);
+                            }
+                        }
+                    });
+                }
+            }
+
+            $("#btn-quitar").click(function () {
+                  if (EQPId != null) {
+                    var url = "@Url.Action("EliminarCriterioEquipo", "AsignacionCriterios", new { EQPId = "param-ARTId" , CRTId = "param-CRTId" })";
+                    url = url.replace("param-ARTId", EQPId);
+                    url = url.replace("param-CRTId", CRTId);
+                    url = url.replace(/&amp;/g, "&");
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        dataType: 'json',
+                        success: function (response) {
+                            obtenerCriteriosEquipos();
+                            $("#select-clasificacion").change();
+                        }
+                    });
+                }
+                else {
+                    var url = "@Url.Action("EliminarCriterioArt", "AsignacionCriterios", new { ARTId = "param-ARTId" , CRTId = "param-CRTId" })";
+                    url = url.replace("param-ARTId", ARTId);
+                    url = url.replace("param-CRTId", CRTId);
+                    url = url.replace(/&amp;/g, "&");
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        dataType: 'json',
+                        success: function (response) {
+                            obtenerCriteriosArt();
+                            $("#select-clasificacion").change();
+                        }
+                    });
+                }
+            });
+
+            $("#btn-agregar").click(function () {
+                if (EQPId != null) {
+                    var url = "@Url.Action("AgregarCriterioEquipo", "AsignacionCriterios")";
+                    var criterios = $(".noasignado-select.active");
+                    arrayAsignados = [];
+                    $.each(criterios, function (i, c) {
+                        arrayAsignados.push($(c).data("id"));
+                    });
+                    var data = {
+                        Criterios: arrayAsignados,
+                        EQPId: EQPId
+                    };
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: data,
+                        dataType: 'json',
+                        success: function (response) {
+                            obtenerCriteriosEquipos();
+                            $("#select-clasificacion").change();
+                        }
+                    });
+                }
+                else {
+                    var url = "@Url.Action("AgregarCriterioArt", "AsignacionCriterios")";
+                    var criterios = $(".noasignado-select.active");
+                    arrayAsignados = [];
+                    $.each(criterios, function (i, c) {
+                        arrayAsignados.push($(c).data("id"));
+                    });
+                    var data = {
+                        Criterios: arrayAsignados,
+                        ARTId: ARTId
+                    };
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: data,
+                        dataType: 'json',
+                        success: function (response) {
+                            obtenerCriteriosArt();
+                            $("#select-clasificacion").change();
+                        }
+                    });
+                }
+            });
+
+            
+            $("#btn-subir").click(function () {
+                 if (EQPId != null) {
+                    var url = "@Url.Action("subirCriterioEquipo", "AsignacionCriterios", new { EQPId = "param-EQPId", CRTId = "param-CRTId" })";
+                     url = url.replace("param-EQPId", EQPId);
+                    url = url.replace("param-CRTId", CRTId);
+                    url = url.replace(/&amp;/g, "&");
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        dataType: 'json',
+                        success: function (response) {
+                            obtenerCriteriosEquipos();
+                        }
+                    });
+                }
+                else {
+                    var url = "@Url.Action("subirCriterioArt", "AsignacionCriterios", new { ARTId = "param-ARTId" , CRTId = "param-CRTId" })";
+                    url = url.replace("param-ARTId", ARTId);
+                    url = url.replace("param-CRTId", CRTId);
+                    url = url.replace(/&amp;/g, "&");
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        dataType: 'json',
+                        success: function (response) {
+                            obtenerCriteriosArt();
+                        }
+                    });
+                }
+            });
+
+            $("#btn-bajar").click(function () {
+                 if (EQPId != null) {
+                    var url = "@Url.Action("bajarCriterioEquipo", "AsignacionCriterios", new { EQPId = "param-EQPId", CRTId = "param-CRTId" })";
+                     url = url.replace("param-EQPId", EQPId);
+                    url = url.replace("param-CRTId", CRTId);
+                    url = url.replace(/&amp;/g, "&");
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        dataType: 'json',
+                        success: function (response) {
+                            obtenerCriteriosEquipos();
+                        }
+                    });
+                }
+                else {
+                    var url = "@Url.Action("bajarCriterioArt", "AsignacionCriterios", new { ARTId = "param-ARTId" , CRTId = "param-CRTId" })";
+                    url = url.replace("param-ARTId", ARTId);
+                    url = url.replace("param-CRTId", CRTId);
+                    url = url.replace(/&amp;/g, "&");
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        dataType: 'json',
+                        success: function (response) {
+                            obtenerCriteriosArt();
+                        }
+                    });
+                }
+            });
+        });</script>
+}
+    <style>
+        span.select2-selection--single {
+            padding-left: 13px !important;
+            padding-top: 3px;
+            height: 38px !important;
+        }
+
+        #nav-equipos, #nav-art{
+            max-height: 300px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        #lista-asignados, #lista-noasignados {
+            max-height: 150px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        #select2-select-tipoProducto-container {
+            max-width: 280px;
+        }
+
+    </style>
+

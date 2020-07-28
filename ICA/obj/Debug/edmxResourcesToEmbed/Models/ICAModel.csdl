@@ -1,0 +1,864 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ICAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Articulo">
+    <Key>
+      <PropertyRef Name="ARTId" />
+    </Key>
+    <Property Name="ARTId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SKU" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TipoProducto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ClasificacionICA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ArticuloCriterio" Relationship="Self.FK_ArticuloCriterio" FromRole="Articulo" ToRole="ArticuloCriterio" />
+    <NavigationProperty Name="EvArticulo" Relationship="ICAModel.FK_EvArticulo" FromRole="Articulo" ToRole="EvArticulo" />
+    <Property Name="ClaveCategoria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DescripcionCategoria" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ClaveSubCategoria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DescripcionSubCategoria" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ArtProveedor" Relationship="ICAModel.FK_ArtProveedor_Articulo" FromRole="Articulo" ToRole="ArtProveedor" />
+  </EntityType>
+  <EntityType Name="ArticuloCriterio">
+    <Key>
+      <PropertyRef Name="ARTId" />
+      <PropertyRef Name="CRTId" />
+    </Key>
+    <Property Name="ARTId" Type="Int32" Nullable="false" />
+    <Property Name="CRTId" Type="Int32" Nullable="false" />
+    <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Articulo" Relationship="Self.FK_ArticuloCriterio" FromRole="ArticuloCriterio" ToRole="Articulo" />
+    <NavigationProperty Name="Criterio" Relationship="Self.FK_ArticuloCriterio_Criterio" FromRole="ArticuloCriterio" ToRole="Criterio" />
+    <Property Name="Orden" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Criterio">
+    <Key>
+      <PropertyRef Name="CRTId" />
+    </Key>
+    <Property Name="CRTId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Clasificacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ev_Posterior" Type="Boolean" Nullable="false" />
+    <Property Name="TipoRespuesta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EvidenciaObli" Type="Boolean" Nullable="false" />
+    <Property Name="NoTomas" Type="Int32" Nullable="false" />
+    <Property Name="TipoEquipo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Precargado" Type="Boolean" Nullable="false" />
+    <Property Name="PermitirVacio" Type="Boolean" Nullable="false" />
+    <Property Name="Comentario" Type="Boolean" Nullable="false" />
+    <Property Name="Condicionante" Type="Boolean" Nullable="false" />
+    <Property Name="CRTId_Cond" Type="Int32" />
+    <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ArticuloCriterio" Relationship="Self.FK_ArticuloCriterio_Criterio" FromRole="Criterio" ToRole="ArticuloCriterio" />
+    <NavigationProperty Name="EquipoCriterio" Relationship="Self.FK_EquipoCriterio_Criterio" FromRole="Criterio" ToRole="EquipoCriterio" />
+    <Property Name="ValorReferencia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="EquipoProducto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="OperacionGlobal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EvEquipo" Relationship="ICAModel.FK_EvArticulo_Cr" FromRole="Criterio" ToRole="EvEquipo" />
+    <NavigationProperty Name="EvArticulo" Relationship="ICAModel.FK_EvArticulo_Criterio" FromRole="Criterio" ToRole="EvArticulo" />
+  </EntityType>
+  <EntityType Name="Equipo">
+    <Key>
+      <PropertyRef Name="EQPId" />
+    </Key>
+    <Property Name="EQPId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="EquipoCriterio" Relationship="Self.FK_EquipoCriterio_Equipo" FromRole="Equipo" ToRole="EquipoCriterio" />
+    <NavigationProperty Name="EvEquipo" Relationship="ICAModel.FK_EvEquipo_Equipo" FromRole="Equipo" ToRole="EvEquipo" />
+  </EntityType>
+  <EntityType Name="EquipoCriterio">
+    <Key>
+      <PropertyRef Name="EQPId" />
+      <PropertyRef Name="CRTId" />
+    </Key>
+    <Property Name="EQPId" Type="Int32" Nullable="false" />
+    <Property Name="CRTId" Type="Int32" Nullable="false" />
+    <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Criterio" Relationship="Self.FK_EquipoCriterio_Criterio" FromRole="EquipoCriterio" ToRole="Criterio" />
+    <NavigationProperty Name="Equipo" Relationship="Self.FK_EquipoCriterio_Equipo" FromRole="EquipoCriterio" ToRole="Equipo" />
+    <Property Name="Orden" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Evaluacion">
+    <Key>
+      <PropertyRef Name="EVAId" />
+    </Key>
+    <Property Name="EVAId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClaveTienda" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NombreTienda" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaInicio" Type="DateTime" Precision="3" />
+    <Property Name="FechaFin" Type="DateTime" Precision="3" />
+    <Property Name="Zona" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PROId" Type="Int32" />
+    <Property Name="Auditor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FechaEvaluacion" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Programacion" Relationship="ICAModel.FK_Evaluacion" FromRole="Evaluacion" ToRole="Programacion" />
+    <Property Name="ZonaKiosko" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Region" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EvArticulo" Relationship="ICAModel.FK_EvArticulo_Ev" FromRole="Evaluacion" ToRole="EvArticulo" />
+    <NavigationProperty Name="EvEquipo" Relationship="ICAModel.FK_EvEquipo_Evaluacion" FromRole="Evaluacion" ToRole="EvEquipo" />
+    <NavigationProperty Name="ArtProveedor" Relationship="ICAModel.FK_ArtProveedor_Evaluacion" FromRole="Evaluacion" ToRole="ArtProveedor" />
+  </EntityType>
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="LOGId" />
+    </Key>
+    <Property Name="LOGId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Modulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Accion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Detalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Modulo">
+    <Key>
+      <PropertyRef Name="MODId" />
+    </Key>
+    <Property Name="MODId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Menu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ModuloPerfil" Relationship="Self.FK_ModuloPerfil_Modulo" FromRole="Modulo" ToRole="ModuloPerfil" />
+  </EntityType>
+  <EntityType Name="ModuloPerfil">
+    <Key>
+      <PropertyRef Name="PERId" />
+      <PropertyRef Name="MODId" />
+    </Key>
+    <Property Name="PERId" Type="Int32" Nullable="false" />
+    <Property Name="MODId" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Insertar" Type="Byte" Nullable="false" />
+    <Property Name="Leer" Type="Byte" Nullable="false" />
+    <Property Name="Actualizar" Type="Byte" Nullable="false" />
+    <Property Name="Borrar" Type="Byte" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Modulo" Relationship="Self.FK_ModuloPerfil_Modulo" FromRole="ModuloPerfil" ToRole="Modulo" />
+    <NavigationProperty Name="Perfil" Relationship="Self.FK_ModuloPerfil_Perfil" FromRole="ModuloPerfil" ToRole="Perfil" />
+  </EntityType>
+  <EntityType Name="Perfil">
+    <Key>
+      <PropertyRef Name="PERId" />
+    </Key>
+    <Property Name="PERId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ModuloPerfil" Relationship="Self.FK_ModuloPerfil_Perfil" FromRole="Perfil" ToRole="ModuloPerfil" />
+    <NavigationProperty Name="UsuarioPerfil" Relationship="Self.FK_UsuarioPerfil_Perfil" FromRole="Perfil" ToRole="UsuarioPerfil" />
+  </EntityType>
+  <EntityType Name="Skus">
+    <Key>
+      <PropertyRef Name="SKU" />
+    </Key>
+    <Property Name="SKU" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Articulo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Tienda">
+    <Key>
+      <PropertyRef Name="ClaveTienda" />
+    </Key>
+    <Property Name="Region" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Zona" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ClaveTienda" Type="Double" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Usuario1" />
+    </Key>
+    <Property Name="Usuario1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Contrasena" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="UsuarioPerfil" Relationship="Self.FK_UsuarioPerfil_Usuario" FromRole="Usuario" ToRole="UsuarioPerfil" />
+  </EntityType>
+  <EntityType Name="UsuarioPerfil">
+    <Key>
+      <PropertyRef Name="Usuario" />
+      <PropertyRef Name="PERId" />
+    </Key>
+    <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PERId" Type="Int32" Nullable="false" />
+    <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Perfil" Relationship="Self.FK_UsuarioPerfil_Perfil" FromRole="UsuarioPerfil" ToRole="Perfil" />
+    <NavigationProperty Name="Usuario1" Relationship="Self.FK_UsuarioPerfil_Usuario" FromRole="UsuarioPerfil" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="ValorReferencia">
+    <Key>
+      <PropertyRef Name="VARClave" />
+    </Key>
+    <Property Name="VARClave" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Modificable" Type="Byte" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="VARValor" Relationship="Self.FK_VARValor_ValorReferencia" FromRole="ValorReferencia" ToRole="VARValor" />
+  </EntityType>
+  <EntityType Name="VARValor">
+    <Key>
+      <PropertyRef Name="VARClave" />
+      <PropertyRef Name="VAVClave" />
+    </Key>
+    <Property Name="VARClave" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="VAVClave" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ValorReferencia" Relationship="Self.FK_VARValor_ValorReferencia" FromRole="VARValor" ToRole="ValorReferencia" />
+  </EntityType>
+  <Association Name="FK_ArticuloCriterio">
+    <End Role="Articulo" Type="Self.Articulo" Multiplicity="1" />
+    <End Role="ArticuloCriterio" Type="Self.ArticuloCriterio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articulo">
+        <PropertyRef Name="ARTId" />
+      </Principal>
+      <Dependent Role="ArticuloCriterio">
+        <PropertyRef Name="ARTId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArticuloCriterio_Criterio">
+    <End Role="Criterio" Type="Self.Criterio" Multiplicity="1" />
+    <End Role="ArticuloCriterio" Type="Self.ArticuloCriterio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Criterio">
+        <PropertyRef Name="CRTId" />
+      </Principal>
+      <Dependent Role="ArticuloCriterio">
+        <PropertyRef Name="CRTId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EquipoCriterio_Criterio">
+    <End Role="Criterio" Type="Self.Criterio" Multiplicity="1" />
+    <End Role="EquipoCriterio" Type="Self.EquipoCriterio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Criterio">
+        <PropertyRef Name="CRTId" />
+      </Principal>
+      <Dependent Role="EquipoCriterio">
+        <PropertyRef Name="CRTId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EquipoCriterio_Equipo">
+    <End Role="Equipo" Type="Self.Equipo" Multiplicity="1" />
+    <End Role="EquipoCriterio" Type="Self.EquipoCriterio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipo">
+        <PropertyRef Name="EQPId" />
+      </Principal>
+      <Dependent Role="EquipoCriterio">
+        <PropertyRef Name="EQPId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModuloPerfil_Modulo">
+    <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+    <End Role="ModuloPerfil" Type="Self.ModuloPerfil" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modulo">
+        <PropertyRef Name="MODId" />
+      </Principal>
+      <Dependent Role="ModuloPerfil">
+        <PropertyRef Name="MODId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModuloPerfil_Perfil">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+    <End Role="ModuloPerfil" Type="Self.ModuloPerfil" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="PERId" />
+      </Principal>
+      <Dependent Role="ModuloPerfil">
+        <PropertyRef Name="PERId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuarioPerfil_Perfil">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+    <End Role="UsuarioPerfil" Type="Self.UsuarioPerfil" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="PERId" />
+      </Principal>
+      <Dependent Role="UsuarioPerfil">
+        <PropertyRef Name="PERId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuarioPerfil_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="UsuarioPerfil" Type="Self.UsuarioPerfil" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Usuario1" />
+      </Principal>
+      <Dependent Role="UsuarioPerfil">
+        <PropertyRef Name="Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VARValor_ValorReferencia">
+    <End Role="ValorReferencia" Type="Self.ValorReferencia" Multiplicity="1" />
+    <End Role="VARValor" Type="Self.VARValor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ValorReferencia">
+        <PropertyRef Name="VARClave" />
+      </Principal>
+      <Dependent Role="VARValor">
+        <PropertyRef Name="VARClave" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ICAEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Articulo" EntityType="Self.Articulo" />
+    <EntitySet Name="ArticuloCriterio" EntityType="Self.ArticuloCriterio" />
+    <EntitySet Name="Criterio" EntityType="Self.Criterio" />
+    <EntitySet Name="Equipo" EntityType="Self.Equipo" />
+    <EntitySet Name="EquipoCriterio" EntityType="Self.EquipoCriterio" />
+    <EntitySet Name="Evaluacion" EntityType="Self.Evaluacion" />
+    <EntitySet Name="Log" EntityType="Self.Log" />
+    <EntitySet Name="Modulo" EntityType="Self.Modulo" />
+    <EntitySet Name="ModuloPerfil" EntityType="Self.ModuloPerfil" />
+    <EntitySet Name="Perfil" EntityType="Self.Perfil" />
+    <EntitySet Name="Skus" EntityType="Self.Skus" />
+    <EntitySet Name="Tienda" EntityType="Self.Tienda" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <EntitySet Name="UsuarioPerfil" EntityType="Self.UsuarioPerfil" />
+    <EntitySet Name="ValorReferencia" EntityType="Self.ValorReferencia" />
+    <EntitySet Name="VARValor" EntityType="Self.VARValor" />
+    <AssociationSet Name="FK_ArticuloCriterio" Association="Self.FK_ArticuloCriterio">
+      <End Role="Articulo" EntitySet="Articulo" />
+      <End Role="ArticuloCriterio" EntitySet="ArticuloCriterio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArticuloCriterio_Criterio" Association="Self.FK_ArticuloCriterio_Criterio">
+      <End Role="Criterio" EntitySet="Criterio" />
+      <End Role="ArticuloCriterio" EntitySet="ArticuloCriterio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EquipoCriterio_Criterio" Association="Self.FK_EquipoCriterio_Criterio">
+      <End Role="Criterio" EntitySet="Criterio" />
+      <End Role="EquipoCriterio" EntitySet="EquipoCriterio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EquipoCriterio_Equipo" Association="Self.FK_EquipoCriterio_Equipo">
+      <End Role="Equipo" EntitySet="Equipo" />
+      <End Role="EquipoCriterio" EntitySet="EquipoCriterio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModuloPerfil_Modulo" Association="Self.FK_ModuloPerfil_Modulo">
+      <End Role="Modulo" EntitySet="Modulo" />
+      <End Role="ModuloPerfil" EntitySet="ModuloPerfil" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModuloPerfil_Perfil" Association="Self.FK_ModuloPerfil_Perfil">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="ModuloPerfil" EntitySet="ModuloPerfil" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuarioPerfil_Perfil" Association="Self.FK_UsuarioPerfil_Perfil">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="UsuarioPerfil" EntitySet="UsuarioPerfil" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuarioPerfil_Usuario" Association="Self.FK_UsuarioPerfil_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="UsuarioPerfil" EntitySet="UsuarioPerfil" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VARValor_ValorReferencia" Association="Self.FK_VARValor_ValorReferencia">
+      <End Role="ValorReferencia" EntitySet="ValorReferencia" />
+      <End Role="VARValor" EntitySet="VARValor" />
+    </AssociationSet>
+    <EntitySet Name="ParametroMuestra" EntityType="ICAModel.ParametroMuestra" />
+    <EntitySet Name="Programacion" EntityType="ICAModel.Programacion" />
+    <AssociationSet Name="FK_Evaluacion" Association="ICAModel.FK_Evaluacion">
+      <End Role="Programacion" EntitySet="Programacion" />
+      <End Role="Evaluacion" EntitySet="Evaluacion" />
+    </AssociationSet>
+    <EntitySet Name="VariacionPermitida" EntityType="ICAModel.VariacionPermitida" />
+    <EntitySet Name="ProgramacionZona" EntityType="ICAModel.ProgramacionZona" />
+    <AssociationSet Name="FK_ProgramacionZona" Association="ICAModel.FK_ProgramacionZona">
+      <End Role="Programacion" EntitySet="Programacion" />
+      <End Role="ProgramacionZona" EntitySet="ProgramacionZona" />
+    </AssociationSet>
+    <EntitySet Name="TipoProducto" EntityType="ICAModel.TipoProducto" />
+    <FunctionImport Name="sp_ValorPreArticulo" ReturnType="Collection(ICAModel.sp_ValorPreArticulo_Result)" />
+    <FunctionImport Name="sp_ValorPreEquipo" ReturnType="Collection(ICAModel.sp_ValorPreEquipo_Result)" />
+    <EntitySet Name="Formula" EntityType="ICAModel.Formula" />
+    <EntitySet Name="EvArticulo" EntityType="ICAModel.EvArticulo" />
+    <EntitySet Name="EvEquipo" EntityType="ICAModel.EvEquipo" />
+    <EntitySet Name="EvidenciaArticulo" EntityType="ICAModel.EvidenciaArticulo" />
+    <EntitySet Name="EvidenciaEquipo" EntityType="ICAModel.EvidenciaEquipo" />
+    <AssociationSet Name="FK_EvArticulo" Association="ICAModel.FK_EvArticulo">
+      <End Role="Articulo" EntitySet="Articulo" />
+      <End Role="EvArticulo" EntitySet="EvArticulo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvArticulo_Cr" Association="ICAModel.FK_EvArticulo_Cr">
+      <End Role="Criterio" EntitySet="Criterio" />
+      <End Role="EvEquipo" EntitySet="EvEquipo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvArticulo_Criterio" Association="ICAModel.FK_EvArticulo_Criterio">
+      <End Role="Criterio" EntitySet="Criterio" />
+      <End Role="EvArticulo" EntitySet="EvArticulo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvEquipo_Equipo" Association="ICAModel.FK_EvEquipo_Equipo">
+      <End Role="Equipo" EntitySet="Equipo" />
+      <End Role="EvEquipo" EntitySet="EvEquipo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvArticulo_Ev" Association="ICAModel.FK_EvArticulo_Ev">
+      <End Role="Evaluacion" EntitySet="Evaluacion" />
+      <End Role="EvArticulo" EntitySet="EvArticulo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvEquipo_Evaluacion" Association="ICAModel.FK_EvEquipo_Evaluacion">
+      <End Role="Evaluacion" EntitySet="Evaluacion" />
+      <End Role="EvEquipo" EntitySet="EvEquipo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvidenciaArticulo_EvArticulo" Association="ICAModel.FK_EvidenciaArticulo_EvArticulo">
+      <End Role="EvArticulo" EntitySet="EvArticulo" />
+      <End Role="EvidenciaArticulo" EntitySet="EvidenciaArticulo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvidenciaEquipo_EvEquipo" Association="ICAModel.FK_EvidenciaEquipo_EvEquipo">
+      <End Role="EvEquipo" EntitySet="EvEquipo" />
+      <End Role="EvidenciaEquipo" EntitySet="EvidenciaEquipo" />
+    </AssociationSet>
+    <EntitySet Name="Prueba" EntityType="ICAModel.Prueba" />
+    <AssociationSet Name="FK_EvidenciaEquipo_EvEquipo1" Association="ICAModel.FK_EvidenciaEquipo_EvEquipo1">
+      <End Role="EvEquipo" EntitySet="EvEquipo" />
+      <End Role="EvidenciaEquipo" EntitySet="EvidenciaEquipo" />
+    </AssociationSet>
+    <EntitySet Name="ArtProveedor" EntityType="ICAModel.ArtProveedor" />
+    <EntitySet Name="Proveedor" EntityType="ICAModel.Proveedor" />
+    <EntitySet Name="ProveedorContacto" EntityType="ICAModel.ProveedorContacto" />
+    <AssociationSet Name="FK_ArtProveedor_Articulo" Association="ICAModel.FK_ArtProveedor_Articulo">
+      <End Role="Articulo" EntitySet="Articulo" />
+      <End Role="ArtProveedor" EntitySet="ArtProveedor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArtProveedor_Evaluacion" Association="ICAModel.FK_ArtProveedor_Evaluacion">
+      <End Role="Evaluacion" EntitySet="Evaluacion" />
+      <End Role="ArtProveedor" EntitySet="ArtProveedor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArtProveedor_Proveedor" Association="ICAModel.FK_ArtProveedor_Proveedor">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="ArtProveedor" EntitySet="ArtProveedor" />
+    </AssociationSet>
+    <EntitySet Name="RangoTorqueVacio" EntityType="ICAModel.RangoTorqueVacio" />
+    <EntitySet Name="RangoCriterio" EntityType="ICAModel.RangoCriterio" />
+  </EntityContainer>
+  <EntityType Name="ParametroMuestra">
+    <Key>
+      <PropertyRef Name="PAMId" />
+    </Key>
+    <Property Name="PAMId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Parametro" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Valor" Type="Double" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Programacion">
+    <Key>
+      <PropertyRef Name="PROId" />
+    </Key>
+    <Property Name="PROId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Mes" Type="Int32" Nullable="false" />
+    <Property Name="Anio" Type="Int32" Nullable="false" />
+    <Property Name="Estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Evaluacion" Relationship="ICAModel.FK_Evaluacion" FromRole="Programacion" ToRole="Evaluacion" />
+    <NavigationProperty Name="ProgramacionZona" Relationship="ICAModel.FK_ProgramacionZona" FromRole="Programacion" ToRole="ProgramacionZona" />
+  </EntityType>
+  <Association Name="FK_Evaluacion">
+    <End Type="ICAModel.Programacion" Role="Programacion" Multiplicity="0..1" />
+    <End Type="ICAModel.Evaluacion" Role="Evaluacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Programacion">
+        <PropertyRef Name="PROId" />
+      </Principal>
+      <Dependent Role="Evaluacion">
+        <PropertyRef Name="PROId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="VariacionPermitida">
+    <Key>
+      <PropertyRef Name="VAPId" />
+    </Key>
+    <Property Name="VAPId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ValMin" Type="Double" Nullable="false" />
+    <Property Name="ValMax" Type="Double" Nullable="false" />
+    <Property Name="VariacionP" Type="Double" Nullable="false" />
+    <Property Name="Tipo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ProgramacionZona">
+    <Key>
+      <PropertyRef Name="PROId" />
+      <PropertyRef Name="Zona" />
+    </Key>
+    <Property Name="PROId" Type="Int32" Nullable="false" />
+    <Property Name="Zona" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Total" Type="Int32" Nullable="false" />
+    <Property Name="Requerido" Type="Int32" Nullable="false" />
+    <Property Name="Real" Type="Int32" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Programacion" Relationship="ICAModel.FK_ProgramacionZona" FromRole="ProgramacionZona" ToRole="Programacion" />
+  </EntityType>
+  <Association Name="FK_ProgramacionZona">
+    <End Type="ICAModel.Programacion" Role="Programacion" Multiplicity="1" />
+    <End Type="ICAModel.ProgramacionZona" Role="ProgramacionZona" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Programacion">
+        <PropertyRef Name="PROId" />
+      </Principal>
+      <Dependent Role="ProgramacionZona">
+        <PropertyRef Name="PROId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TipoProducto">
+    <Key>
+      <PropertyRef Name="TPRId" />
+    </Key>
+    <Property Name="TPRId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Producto" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Categoria" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="TamPorcion" Type="Double" />
+    <Property Name="Unidad" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="TamPorcionMin" Type="Double" />
+    <Property Name="Estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="sp_ValorPreArticulo_Result">
+    <Property Type="Int32" Name="ARTId" Nullable="false" />
+    <Property Type="Int32" Name="CRTId" Nullable="false" />
+    <Property Type="String" Name="Valor" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_ValorPreEquipo_Result">
+    <Property Type="Int32" Name="EQPId" Nullable="false" />
+    <Property Type="Int32" Name="CRTId" Nullable="false" />
+    <Property Type="String" Name="Valor" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="Formula">
+    <Key>
+      <PropertyRef Name="FORId" />
+    </Key>
+    <Property Name="FORId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ProcAlmacenado" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Elemento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ClasifiCA" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="SubClasificacion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="OperacionGlobal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IncluirInformeProv" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="EvArticulo">
+    <Key>
+      <PropertyRef Name="EVRId" />
+    </Key>
+    <Property Name="EVRId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EVAId" Type="Int32" Nullable="false" />
+    <Property Name="ARTId" Type="Int32" Nullable="false" />
+    <Property Name="CRTId" Type="Int32" Nullable="false" />
+    <Property Name="NoToma" Type="Int32" />
+    <Property Name="Valor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CveEvArt" Type="Int32" />
+    <Property Name="Comentario" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Articulo" Relationship="ICAModel.FK_EvArticulo" FromRole="EvArticulo" ToRole="Articulo" />
+    <NavigationProperty Name="Criterio" Relationship="ICAModel.FK_EvArticulo_Criterio" FromRole="EvArticulo" ToRole="Criterio" />
+    <NavigationProperty Name="Evaluacion" Relationship="ICAModel.FK_EvArticulo_Ev" FromRole="EvArticulo" ToRole="Evaluacion" />
+    <NavigationProperty Name="EvidenciaArticulo" Relationship="ICAModel.FK_EvidenciaArticulo_EvArticulo" FromRole="EvArticulo" ToRole="EvidenciaArticulo" />
+  </EntityType>
+  <EntityType Name="EvEquipo">
+    <Key>
+      <PropertyRef Name="EVEId" />
+    </Key>
+    <Property Name="EVEId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EVAId" Type="Int32" Nullable="false" />
+    <Property Name="EQPId" Type="Int32" Nullable="false" />
+    <Property Name="CRTId" Type="Int32" Nullable="false" />
+    <Property Name="Sabor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="NoToma" Type="Int32" />
+    <Property Name="Valor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Comentario" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Criterio" Relationship="ICAModel.FK_EvArticulo_Cr" FromRole="EvEquipo" ToRole="Criterio" />
+    <NavigationProperty Name="Equipo" Relationship="ICAModel.FK_EvEquipo_Equipo" FromRole="EvEquipo" ToRole="Equipo" />
+    <NavigationProperty Name="Evaluacion" Relationship="ICAModel.FK_EvEquipo_Evaluacion" FromRole="EvEquipo" ToRole="Evaluacion" />
+    <NavigationProperty Name="EvidenciaEquipo" Relationship="ICAModel.FK_EvidenciaEquipo_EvEquipo" FromRole="EvEquipo" ToRole="EvidenciaEquipo" />
+    <NavigationProperty Name="EvidenciaEquipo1" Relationship="ICAModel.FK_EvidenciaEquipo_EvEquipo1" FromRole="EvEquipo" ToRole="EvidenciaEquipo" />
+  </EntityType>
+  <EntityType Name="EvidenciaArticulo">
+    <Key>
+      <PropertyRef Name="AERId" />
+    </Key>
+    <Property Name="AERId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EVRId" Type="Int32" Nullable="false" />
+    <Property Name="EvidenciaDir" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EvArticulo" Relationship="ICAModel.FK_EvidenciaArticulo_EvArticulo" FromRole="EvidenciaArticulo" ToRole="EvArticulo" />
+  </EntityType>
+  <EntityType Name="EvidenciaEquipo">
+    <Key>
+      <PropertyRef Name="AEVId" />
+    </Key>
+    <Property Name="AEVId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EVEId" Type="Int32" Nullable="false" />
+    <Property Name="EvidenciaDir" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EvEquipo" Relationship="ICAModel.FK_EvidenciaEquipo_EvEquipo" FromRole="EvidenciaEquipo" ToRole="EvEquipo" />
+    <NavigationProperty Name="EvEquipo1" Relationship="ICAModel.FK_EvidenciaEquipo_EvEquipo1" FromRole="EvidenciaEquipo" ToRole="EvEquipo" />
+  </EntityType>
+  <Association Name="FK_EvArticulo">
+    <End Type="ICAModel.Articulo" Role="Articulo" Multiplicity="1" />
+    <End Type="ICAModel.EvArticulo" Role="EvArticulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articulo">
+        <PropertyRef Name="ARTId" />
+      </Principal>
+      <Dependent Role="EvArticulo">
+        <PropertyRef Name="ARTId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvArticulo_Cr">
+    <End Type="ICAModel.Criterio" Role="Criterio" Multiplicity="1" />
+    <End Type="ICAModel.EvEquipo" Role="EvEquipo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Criterio">
+        <PropertyRef Name="CRTId" />
+      </Principal>
+      <Dependent Role="EvEquipo">
+        <PropertyRef Name="CRTId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvArticulo_Criterio">
+    <End Type="ICAModel.Criterio" Role="Criterio" Multiplicity="1" />
+    <End Type="ICAModel.EvArticulo" Role="EvArticulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Criterio">
+        <PropertyRef Name="CRTId" />
+      </Principal>
+      <Dependent Role="EvArticulo">
+        <PropertyRef Name="CRTId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvEquipo_Equipo">
+    <End Type="ICAModel.Equipo" Role="Equipo" Multiplicity="1" />
+    <End Type="ICAModel.EvEquipo" Role="EvEquipo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipo">
+        <PropertyRef Name="EQPId" />
+      </Principal>
+      <Dependent Role="EvEquipo">
+        <PropertyRef Name="EQPId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvArticulo_Ev">
+    <End Type="ICAModel.Evaluacion" Role="Evaluacion" Multiplicity="1" />
+    <End Type="ICAModel.EvArticulo" Role="EvArticulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evaluacion">
+        <PropertyRef Name="EVAId" />
+      </Principal>
+      <Dependent Role="EvArticulo">
+        <PropertyRef Name="EVAId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvEquipo_Evaluacion">
+    <End Type="ICAModel.Evaluacion" Role="Evaluacion" Multiplicity="1" />
+    <End Type="ICAModel.EvEquipo" Role="EvEquipo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evaluacion">
+        <PropertyRef Name="EVAId" />
+      </Principal>
+      <Dependent Role="EvEquipo">
+        <PropertyRef Name="EVAId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvidenciaArticulo_EvArticulo">
+    <End Type="ICAModel.EvArticulo" Role="EvArticulo" Multiplicity="1" />
+    <End Type="ICAModel.EvidenciaArticulo" Role="EvidenciaArticulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EvArticulo">
+        <PropertyRef Name="EVRId" />
+      </Principal>
+      <Dependent Role="EvidenciaArticulo">
+        <PropertyRef Name="EVRId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvidenciaEquipo_EvEquipo">
+    <End Type="ICAModel.EvEquipo" Role="EvEquipo" Multiplicity="1" />
+    <End Type="ICAModel.EvidenciaEquipo" Role="EvidenciaEquipo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EvEquipo">
+        <PropertyRef Name="EVEId" />
+      </Principal>
+      <Dependent Role="EvidenciaEquipo">
+        <PropertyRef Name="EVEId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Prueba">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Apellido" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_EvidenciaEquipo_EvEquipo1">
+    <End Type="ICAModel.EvEquipo" Role="EvEquipo" Multiplicity="1" />
+    <End Type="ICAModel.EvidenciaEquipo" Role="EvidenciaEquipo" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EvEquipo">
+        <PropertyRef Name="EVEId" />
+      </Principal>
+      <Dependent Role="EvidenciaEquipo">
+        <PropertyRef Name="AEVId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ArtProveedor">
+    <Key>
+      <PropertyRef Name="EVAId" />
+      <PropertyRef Name="ARTId" />
+      <PropertyRef Name="PRVId" />
+    </Key>
+    <Property Name="EVAId" Type="Int32" Nullable="false" />
+    <Property Name="ARTId" Type="Int32" Nullable="false" />
+    <Property Name="PRVId" Type="Int32" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Articulo" Relationship="ICAModel.FK_ArtProveedor_Articulo" FromRole="ArtProveedor" ToRole="Articulo" />
+    <NavigationProperty Name="Evaluacion" Relationship="ICAModel.FK_ArtProveedor_Evaluacion" FromRole="ArtProveedor" ToRole="Evaluacion" />
+    <NavigationProperty Name="Proveedor" Relationship="ICAModel.FK_ArtProveedor_Proveedor" FromRole="ArtProveedor" ToRole="Proveedor" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="PRVId" />
+    </Key>
+    <Property Name="PRVId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClaveProveedor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="false" />
+    <Property Name="Estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ArtProveedor" Relationship="ICAModel.FK_ArtProveedor_Proveedor" FromRole="Proveedor" ToRole="ArtProveedor" />
+  </EntityType>
+  <EntityType Name="ProveedorContacto">
+    <Key>
+      <PropertyRef Name="PRVId" />
+      <PropertyRef Name="Correo" />
+    </Key>
+    <Property Name="PRVId" Type="Int32" Nullable="false" />
+    <Property Name="Correo" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="false" />
+    <Property Name="Puesto" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_ArtProveedor_Articulo">
+    <End Type="ICAModel.Articulo" Role="Articulo" Multiplicity="1" />
+    <End Type="ICAModel.ArtProveedor" Role="ArtProveedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articulo">
+        <PropertyRef Name="ARTId" />
+      </Principal>
+      <Dependent Role="ArtProveedor">
+        <PropertyRef Name="ARTId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArtProveedor_Evaluacion">
+    <End Type="ICAModel.Evaluacion" Role="Evaluacion" Multiplicity="1" />
+    <End Type="ICAModel.ArtProveedor" Role="ArtProveedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evaluacion">
+        <PropertyRef Name="EVAId" />
+      </Principal>
+      <Dependent Role="ArtProveedor">
+        <PropertyRef Name="EVAId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArtProveedor_Proveedor">
+    <End Type="ICAModel.Proveedor" Role="Proveedor" Multiplicity="1" />
+    <End Type="ICAModel.ArtProveedor" Role="ArtProveedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="PRVId" />
+      </Principal>
+      <Dependent Role="ArtProveedor">
+        <PropertyRef Name="PRVId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="RangoTorqueVacio">
+    <Key>
+      <PropertyRef Name="RTVId" />
+    </Key>
+    <Property Name="RTVId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Base" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ValorTorque" Type="Double" Nullable="false" />
+    <Property Name="TamGrano" Type="Double" Nullable="false" />
+    <Property Name="Resultado" Type="Double" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Estatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="RangoCriterio">
+    <Key>
+      <PropertyRef Name="RNGId" />
+    </Key>
+    <Property Name="RNGId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CRTId" Type="Int32" Nullable="false" />
+    <Property Name="Base" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ValorMin" Type="Double" Nullable="false" />
+    <Property Name="ValorMax" Type="Double" Nullable="false" />
+    <Property Name="MFechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MUsuarioId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

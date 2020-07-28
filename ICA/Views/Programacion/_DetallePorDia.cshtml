@@ -1,0 +1,167 @@
+﻿@model IEnumerable<ICA.Models.Evaluacion>
+@using ICA.Utilities
+<div class="modal-header">
+    <h5 class="modal-title">@ViewBag.NombreZona - @ViewBag.Auditor - @ViewBag.Fecha.ToString().Substring(0, 9)</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <span>Para agregar una tienda a la programación selecciona una opción y presiona el botón.</span>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="opcion" id="aleatoria" value="aleatoria" checked>
+                <label class="form-check-label" for="inlineRadio1">Aleatoria</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="opcion" id="clave" value="clave">
+                <label class="form-check-label" for="inlineRadio2"><input id="claveTienda" type="text" placeholder="Clave" disabled /></label>
+            </div>
+            <button class="btn btn-success" id="btn-agregar">Agregar</button>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered" id="evaluaciones">
+                <thead>
+                    <tr>
+                        <th>Clave Tienda</th>
+                        <th>Nombre</th>
+                        <th>Auditor</th>
+                        <th>Fecha</th>
+                        <th>Estatus</th>
+                        <th>operaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClaveTienda)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreTienda)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Auditor)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FechaEvaluacion).ToString().Substring(0, 9)
+                            </td>
+                            <td>
+                                @Html.ValorDescripcion("ESTATUSEV", item.Estatus)
+                            </td>
+                            <td class="text-center">
+                                @if (item.Estatus != "E")
+                                {
+                                    <button class="btn btn-sm btn-danger btn-eliminar" data-evaid="@item.EVAId"><i class="fas fa-times"></i></button>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("[name='opcion']").change(function () {
+            var opcion = $(this).val();
+            if (opcion == "clave") {
+                $("#claveTienda").prop("disabled", false);
+            } else {
+                $("#claveTienda").prop("disabled", true);
+                $("#claveTienda").val("");
+            }
+        })
+
+        $(".btn-eliminar").click(function (e) {
+            e.preventDefault();
+            var evaid = $(this).data("evaid");
+            eliminar(evaid);
+        });
+
+        $("#btn-agregar").click(function(e){
+            e.preventDefault();
+            console.log("agregando..");
+            var url = "@Url.Action("AgregarTienda", "Programacion", new { })";
+            var clave = "";
+            if (!$("#aleatoria").prop("checked")) {
+                clave = $("#claveTienda").val();
+                if (clave == "") {
+                    toastr["error"]("Debe ingresar una clave correcta");
+                    return;
+                }
+                    
+            }
+                
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                    fecha: "@ViewBag.Fecha.ToString()",//"@ViewBag.Fecha.ToString().Substring(0, 9)",
+                    zona: "@ViewBag.Zona",
+                    auditor: "@ViewBag.Auditor",
+                    PROId: PROId,
+                    ClaveTienda: clave
+                },
+                dataType: 'json',
+                success: function (evaluacion) {
+                    if (evaluacion.Estatus != false) {
+                        toastr["success"]("Tienda agregada con éxito");
+                        mostrarCalendario();
+                        var html = `<tr>
+                                        <td>${evaluacion.ClaveTienda}</td>
+                                        <td>${evaluacion.NombreTienda}</td>
+                                        <td>${evaluacion.Auditor}</td>
+                                        <td>${evaluacion.Fecha}</td>
+                                        <td>${evaluacion.Estatus}</td>
+                                        <td  class="text-center"><button class="btn btn-sm btn-danger btn-eliminar" data-evaid="${evaluacion.EVAId}"><i class="fas fa-times"></i></button></td>
+                                    <tr>`;
+                        $("#evaluaciones tbody").append(html);
+                        $(".btn-eliminar").unbind("click");
+                        $(".btn-eliminar").click(function (e) {
+                            e.preventDefault();
+                            var evaid = $(this).data("evaid");
+                            eliminar(evaid);
+                        });
+                    } else {
+                        toastr["error"](evaluacion.mensaje);
+                    }
+                },
+                fail: function (res) {
+                    toastr["error"](res.mensaje);
+                }
+            });
+        });
+    });
+    function eliminar(evaid) {
+            var url = "@Url.Action("eliminarProgramada", "Programacion", new { })";
+            url = url + "?EVAId="+evaid;
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'json',
+                success: function (response) {
+                    toastr["success"]("Tienda eliminada con éxito");
+                    mostrarCalendario();
+                    if(response)
+                        $("button[data-evaid=" + evaid + "]").parent().parent().remove();
+                },
+                fail: function (res) {
+                    toastr["error"]("Error al eliminar tienda");
+                }
+            });
+        }
+
+</script>

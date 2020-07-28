@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5547bd1160f5447bab6ea931fe11ce17" Name="Diagram1" ZoomLevel="84">
+        <EntityTypeShape EntityType="ICAModel.Articulo" Width="1.5" PointX="0.625" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.ArticuloCriterio" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.Criterio" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.Equipo" Width="1.5" PointX="3.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.EquipoCriterio" Width="1.5" PointX="6" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.Evaluacion" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.Log" Width="1.5" PointX="5.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.Modulo" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.ModuloPerfil" Width="1.5" PointX="11" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.Perfil" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.Skus" Width="1.5" PointX="5.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.Tienda" Width="1.5" PointX="8.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.Usuario" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.UsuarioPerfil" Width="1.5" PointX="14" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.ValorReferencia" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ICAModel.VARValor" Width="1.5" PointX="11" PointY="8.625" IsExpanded="true" />
+        <AssociationConnector Association="ICAModel.FK_ArticuloCriterio" ManuallyRouted="false" />
+        <AssociationConnector Association="ICAModel.FK_ArticuloCriterio_Criterio" ManuallyRouted="false" />
+        <AssociationConnector Association="ICAModel.FK_EquipoCriterio_Criterio" ManuallyRouted="false" />
+        <AssociationConnector Association="ICAModel.FK_EquipoCriterio_Equipo" ManuallyRouted="false" />
+        <AssociationConnector Association="ICAModel.FK_ModuloPerfil_Modulo" ManuallyRouted="false" />
+        <AssociationConnector Association="ICAModel.FK_ModuloPerfil_Perfil" ManuallyRouted="false" />
+        <AssociationConnector Association="ICAModel.FK_UsuarioPerfil_Perfil" ManuallyRouted="false" />
+        <AssociationConnector Association="ICAModel.FK_UsuarioPerfil_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="ICAModel.FK_VARValor_ValorReferencia" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ICAModel.ParametroMuestra" Width="1.5" PointX="13.375" PointY="8.75" />
+        <EntityTypeShape EntityType="ICAModel.Programacion" Width="1.5" PointX="13.375" PointY="11.75" />
+        <AssociationConnector Association="ICAModel.FK_Evaluacion" />
+        <EntityTypeShape EntityType="ICAModel.VariacionPermitida" Width="1.5" PointX="15.375" PointY="8.75" />
+        <EntityTypeShape EntityType="ICAModel.ProgramacionZona" Width="1.5" PointX="15.625" PointY="12.875" />
+        <AssociationConnector Association="ICAModel.FK_ProgramacionZona" />
+        <EntityTypeShape EntityType="ICAModel.TipoProducto" Width="1.5" PointX="3.375" PointY="15.75" />
+        <EntityTypeShape EntityType="ICAModel.Formula" Width="1.5" PointX="5.375" PointY="15.75" />
+        <EntityTypeShape EntityType="ICAModel.EvArticulo" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="ICAModel.EvEquipo" Width="1.5" PointX="9" PointY="16.75" />
+        <EntityTypeShape EntityType="ICAModel.EvidenciaArticulo" Width="1.5" PointX="5.25" PointY="9.75" />
+        <EntityTypeShape EntityType="ICAModel.EvidenciaEquipo" Width="1.5" PointX="11.25" PointY="17.375" />
+        <AssociationConnector Association="ICAModel.FK_EvArticulo" />
+        <AssociationConnector Association="ICAModel.FK_EvArticulo_Cr" />
+        <AssociationConnector Association="ICAModel.FK_EvArticulo_Criterio" />
+        <AssociationConnector Association="ICAModel.FK_EvEquipo_Equipo" />
+        <AssociationConnector Association="ICAModel.FK_EvArticulo_Ev" />
+        <AssociationConnector Association="ICAModel.FK_EvEquipo_Evaluacion" />
+        <AssociationConnector Association="ICAModel.FK_EvidenciaArticulo_EvArticulo" />
+        <AssociationConnector Association="ICAModel.FK_EvidenciaEquipo_EvEquipo" />
+        <EntityTypeShape EntityType="ICAModel.Prueba" Width="1.5" PointX="16.375" PointY="0.75" />
+        <AssociationConnector Association="ICAModel.FK_EvidenciaEquipo_EvEquipo1" />
+        <EntityTypeShape EntityType="ICAModel.ArtProveedor" Width="1.5" PointX="3" PointY="8.75" />
+        <EntityTypeShape EntityType="ICAModel.Proveedor" Width="1.5" PointX="0.75" PointY="17.875" />
+        <EntityTypeShape EntityType="ICAModel.ProveedorContacto" Width="1.5" PointX="16.375" PointY="3.75" />
+        <AssociationConnector Association="ICAModel.FK_ArtProveedor_Articulo" />
+        <AssociationConnector Association="ICAModel.FK_ArtProveedor_Evaluacion" />
+        <AssociationConnector Association="ICAModel.FK_ArtProveedor_Proveedor" />
+        <EntityTypeShape EntityType="ICAModel.RangoTorqueVacio" Width="1.5" PointX="13.5" PointY="16.75" />
+        <EntityTypeShape EntityType="ICAModel.RangoCriterio" Width="1.5" PointX="16.375" PointY="16.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
